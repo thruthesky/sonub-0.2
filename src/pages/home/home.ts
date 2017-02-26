@@ -6,11 +6,8 @@ import { NoticeModalContent } from '../../components/modals/notice/notice';
     templateUrl: 'home.html'
 })
 export class HomePage {
-    constructor( private ngbModal: NgbModal ) {
-        this.onClickModal();
+    constructor() {
+        
     }
-    onClickModal() {
-    const modalRef = this.ngbModal.open( NoticeModalContent, { windowClass: 'notice' } );
-          modalRef.componentInstance.name = 'Aonic';
-    }
+    
 }
