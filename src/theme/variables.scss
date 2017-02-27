@@ -1,18 +1,32 @@
+/** Variables
+ 
+ *
+ */
+$header-top: 54px;
+$gutter: 16px;
 
+/** Bootstrap overwrite
+ *
+ */
+.card-deck .card:not(:last-child) {
+    margin-right: 0!important;
+}
 /** Bootstrap break points;
  *
  */
-$break-sm: 540px;
-$break-md: 720px;
-$break-lg: 960px;
-$break-xl: 1140px;
+$break-sm: 576x;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xl: 1200px;
 
 
 /** Layout
  *
  */
+
 section.content {
-    padding: 1em;
+    margin-top: $header-top + $gutter;
+    padding: 0 1em 1em;
     @media all and ( min-width: $break-md ) {
         margin: auto;
         max-width: $break-lg;
@@ -40,4 +54,40 @@ section.content {
     img {
         width: 100%;
     }
+}
+
+
+.jumbotron {
+    padding: 1em .8em!important;
+}
+@media (min-width: 576px) {
+    .jumbotron {
+        padding: 1.6em 1.2em!important;
+    }
+}
+
+
+
+
+/** */
+header {
+    nav {
+        background-color: #7186a0;
+        color: white;
+    }
+    .post {
+        position: absolute;
+        top: .4em;
+        right: .4em;
+        width: 6em;
+    }
+}
+.search {
+    .more {
+        display: none;
+    }
+}
+
+.active {
+    display: block!important;
 }
