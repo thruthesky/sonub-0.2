@@ -25,7 +25,7 @@ $break-xl: 1200px;
  */
 
 section.content {
-    margin-top: $header-top + $gutter;
+    margin-top: $header-top + $gutter!important;
     padding: 0 1em 1em;
     @media all and ( min-width: $break-md ) {
         margin: auto;
