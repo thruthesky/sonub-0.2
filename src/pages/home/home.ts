@@ -243,6 +243,7 @@ export class HomePage {
 
     }
 
+
     onClickProvince() {
         if( this.query.varchar_2 != 'all') {
             this.query.varchar_3 = this.query.varchar_2;
