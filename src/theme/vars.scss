@@ -1,0 +1,159 @@
+
+$content-width: 960px; // 960px is best fit for desktop.
+$break-point: 760px; // 760px is best fit. this is the 'app.size' break point.
+$break-sm: 540px;           // bootstrap 'sm' size break
+$header-height: 4.625rem;
+$left-width: 12.5rem;
+$right-width: 10rem;
+
+$gutter: 0.5rem;
+
+
+$header-background-color: (
+    1: #703023,
+    'forum': #424c36,
+    3: #123456,
+    'user': #5d6983,
+    'message': #606960,
+    'setting': #87939e
+);
+
+$header-icon-background-color: (
+    1: #f9f9f9,
+    'forum': #f9f9f9,
+    3: #f9f9f9,
+    'user': white,
+    'message': white
+);
+
+$header-icon-color: (
+    1: #904030,
+    'forum': #424c36,
+    3: darkgrey,
+    'user': #5d6983,
+    'message': #606960,
+    'setting': #909ca7
+);
+
+
+$header-color: (
+    1: #fff,
+    'forum': #fff,
+    3: #d00,
+    'user': white,
+    'message': white,
+    'setting': white
+);
+
+
+
+$page-background-color: (
+    1: transparent,
+    'forum': transparent,
+    3: #dfdfdf,
+    'user': transparent,
+    'message': transparent,
+    'setting': transparent
+);
+
+$content-background-color: (
+    1: transparent,
+    'forum': transparent,
+    3: #394950,
+    'user': transparent,
+    'message': transparent,
+    'setting': transparent
+);
+
+$box-title-background-color: (
+    1: #8e8e8e,
+    'forum': #65695f,
+    3: #a9b7c0,
+    'user': #5d6983,
+    'message': #606960,
+    'setting': #87939e
+);
+
+$box-title-color: (
+    1: #fff,
+    'forum': #f9f9f9,
+    3: orange,
+    'user': white,
+    'message': white,
+    'setting': white
+);
+
+@function page-background-color( $n ) { @return map_get( $page-background-color, $n ); }
+@function content-background-color( $n ) { @return map_get( $content-background-color, $n ); }
+@function header-background-color( $n ) { @return map_get( $header-background-color, $n ); }
+@function header-icon-background-color( $n ) { @return map_get( $header-icon-background-color, $n ); }
+@function header-icon-color( $n ) { @return map_get( $header-icon-color, $n ); }
+@function header-color( $n ) { @return map_get( $header-color, $n ); }
+@function box-title-background-color( $n ) { @return map_get( $box-title-background-color, $n ); }
+@function box-title-color( $n ) { @return map_get( $box-title-color, $n ); }
+
+
+
+
+
+@mixin no-gutter() {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+@mixin color-combination( $n ) {
+    background-color: page-background-color( $n );
+    header.fixed-top {
+        color: header-color( $n );
+        background-color: header-background-color( $n );
+        .icon {
+            .background {
+                color: header-icon-background-color( $n );
+            }
+            .font {
+                color: header-icon-color( $n );
+            }
+        }
+    }
+    section.content {
+        background-color: content-background-color( $n );
+        aside.left, aside.right {
+            .box {
+                border: 1px solid box-title-background-color( $n );
+                .title {
+                    color: box-title-color( $n );
+                    background-color: box-title-background-color( $n );
+                }
+            }
+        }
+    }
+}
+.box {
+    display: block;
+    margin-bottom: $gutter;
+    background-color: white;
+    box-sizing: border-box;
+    .title {
+        padding: $gutter;
+        border-bottom: 0;
+        font-size: .9em;
+    }
+    .content {
+        box-sizing: border-box;
+    }
+}
+
+
+
+
+.clearfix {
+    clear: both;
+    &:after {
+        display: block;
+        content: '';
+        clear: both;
+    }
+}
+

@@ -1,0 +1,123 @@
+.cursor {
+  cursor: pointer;
+}
+.toast {
+    display: none;
+    &[active='true'] { display: block; }
+    position: fixed;
+    top: 82px;
+    left: 0;
+    right: 0;
+
+    margin: 0 auto;
+    padding: 1em;
+    width: 24em;
+    background-color: #aeae77;
+
+    box-shadow: 1px 1px 1px #888888;
+
+    z-index: 150;
+    &:before {
+        margin-right: .6em;
+        font-family: 'FontAwesome';
+        content: '\f071';
+    }
+}
+
+.toast.error {
+    background-color: darkgoldenrod;
+    color: white;
+    &:before {
+        margin-right: .6em;
+        font-family: 'FontAwesome';
+        content: '\f071';
+    }
+}
+
+
+.toast.notice {
+    background-color: lightslategray;
+    color: white;
+    &:before {
+        margin-right: .6em;
+        font-family: 'FontAwesome';
+        content: '\f071';
+    }
+}
+
+
+
+ngb-modal-backdrop.modal-backdrop.show {
+  opacity: .7;
+}
+
+/** Full View Image Modal **/
+ngb-modal-window.full-image .modal-dialog {
+  max-width: 700px;
+  text-align: center;
+  .modal-content {
+    border: 0;
+    background-color: transparent;
+    image-modal {
+
+      .modal-body {
+        padding: 0;
+        img {
+          max-width: 100%;
+          border: 2px solid white;
+        }
+      }
+    }
+  }
+}
+
+/** Member Information Modal **/
+ngb-modal-window.member-info .modal-dialog {
+  margin-top: 5.6em;
+  .modal-content {
+    member-info-modal {
+      .modal-body {
+        .text {
+          padding: .6em 0;
+          font-weight: normal;
+        }
+        .message, .post-list {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+/** Mobile Upload Modal **/
+ngb-modal-window.mobile-upload .modal-dialog {
+  .modal-content {
+    mobile-upload-modal {
+      .modal-body {
+        overflow: auto;
+        .title {
+          font-weight: 500;
+        }
+        .option {
+          float: left;
+          width: 50%;
+          padding: 3em 0;
+          text-align: center;
+          .text {
+            font-weight: 500;
+            cursor: pointer;
+          }
+          .fa {
+            font-size: 2em;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.modal.alarm {
+  margin-top: 5.6em;
+}
+

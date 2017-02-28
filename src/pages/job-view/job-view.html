@@ -1,0 +1,85 @@
+<!--job-header></job-header-->
+<section class="content" [class.big]=" app.size == 'big' ">
+  <!--job-left *ngIf=" app.size == 'big' "></job-left-->
+  <section class="center">
+
+    <div class="container-fluid">
+
+      <div class="row">
+        <div class="primary-photo">
+          <img [src]="urlPhoto">
+        </div><!--/primary-photo-->
+      </div>
+
+      <div class="row">
+        <label class="col-12">{{ ek('Name', '이름') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.text_1}} {{form.text_2}} {{form.text_3}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col-12">{{ ek('Mobile', '전화') }} #</label>
+        <div class="col-12">
+          <div class="text">{{form.varchar_4}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col-12">{{ ek('Address','주소') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.varchar_1}}, {{form.varchar_3}}, {{form.varchar_2}}</div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <label class="col-12">{{ ek('Birthday','생년월일') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.varchar_5}} ({{ currentYear - form.int_2 }} year's old)</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col-12">{{ ek('Gender','성별') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.char_1 == 'm' ? 'Male' : 'Female'}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col-12">{{ ek('Work Experience','경력') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.int_1 + ' years'}}</div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <label class="col-12">{{ ek('Work Profession','직업') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.sub_category}}</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <label class="col-12">{{ ek('Personal Message','메세지') }}</label>
+        <div class="col-12">
+          <div class="text">{{form.varchar_6}}</div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-12">
+          <button type="button" (click)="onClickClose()">{{ ek('Close','닫기') }}</button>
+        </div>
+      </div>
+
+
+    </div>
+
+  </section><!--/.center-->
+  <!--job-right *ngIf=" app.size == 'big' "></job-right-->
+</section><!--/section.content-->

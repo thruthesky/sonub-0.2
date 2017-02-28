@@ -1,3 +1,6 @@
+@import './vars';
+@import './module';
+
 /** Variables
  
  *
@@ -89,5 +92,8 @@ header {
 }
 
 .active {
-    display: block!important;
+    display: inline-block!important;
+    &>label,select {
+        float: left;
+    }
 }

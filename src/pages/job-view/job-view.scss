@@ -1,0 +1,48 @@
+job-view {
+  display: block;
+  @include color-combination( 'setting' );
+  
+  .content{
+  }
+  .primary-photo {
+    position: relative;
+    margin: 0 auto;
+    padding: .2em;
+    border: 1px solid #bbb;
+    max-width: 14em;
+    max-height: 14em;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
+
+  .content {
+    label {
+      font-size: .8rem;
+      color: #49494f;
+    }
+  }
+  
+
+  .content .text {
+    padding: .6em .8em;
+    background-color: #cfcfc9;
+  }
+
+  .row {
+    margin-top: .6em;
+  }
+
+  .row button {
+    margin-top: 1em;
+    padding: .4em;
+    box-sizing: border-box;
+    border: 0;
+    background-color: #ccb;
+    width: 100%;
+    color: #333;
+  }
+
+}
+
