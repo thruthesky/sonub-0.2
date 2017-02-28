@@ -53,9 +53,14 @@ section.content {
  }
 
 .card {
+    float: left;
+    width: 33%;
     margin: 0 0 1em;
     img {
         width: 100%;
+    }
+    p {
+        font-size: .9em;
     }
 }
 

@@ -101,38 +101,31 @@
   </div>
 
 
-
-  <div class="card-deck">
-    <div class="card">
-      <img class="card-img-top" src="assets/tmp/1.jpg" alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="assets/tmp/1.jpg" alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </div>
-    <div class="card">
-      <img class="card-img-top" src="assets/tmp/1.jpg" alt="Card image cap">
-      <div class="card-block">
-        <h4 class="card-title">Card title</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      </div>
-      <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
-      </div>
-    </div>
-  </div>
+  <ng-container *ngFor=" let page of pages ">
+    <ng-container  *ngFor=" let post of page['search'] ">
+        <div class="card" *ngIf="post.idx && post.deleted == '0' ">
+          <img class="card-img-top" src="{{post.photos.length ? post.photos[0]['url_thumbnail'] : urlPhoto}}" alt="{{post.text_1}}">
+          <div class="card-block">
+            <!--h4 class="card-title">Card title</h4-->
+            <p class="card-text">{{post.text_1}} {{post.text_2}} {{post.text_3}}</p>
+            <p class="card-text">{{ t( post.sub_category ) }}</p>
+            <p class="card-text">{{ currentYear - post.int_2 }}{{ ek('','세') }}</p>
+            <p class="card-text">{{ t('mobile') }} : {{post.varchar_4}}</p>
+            <p class="card-text">{{ t('experience') }} : {{post.int_1}}{{ t('years') }}</p>
+            <p class="card-text">{{ ek('Address','경력') }} : {{post.varchar_1}}</p>
+            <div class="text">{{ ek('Province','경력') }} : {{post.varchar_2}}</div>
+            <p class="card-text">{{ ek('City','지역') }} : {{post.varchar_3}}</p>
+            <!--p class="card-text">{{post.varchar_6}}</p-->
+            <div class="share link">
+              <span class="text">{{ ek('Share', '링크') }}</span>
+              <input class="shareLink text cursor" onClick="this.setSelectionRange(0, this.value.length)" value="{{post.link}}" readonly/>
+            </div>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+    </ng-container><!--/.col-xx-x-->
+  </ng-container><!--/.page.posts.row-->
 
 </section>

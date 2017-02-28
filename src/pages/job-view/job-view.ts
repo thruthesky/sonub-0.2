@@ -69,7 +69,7 @@ export class JobViewPage {
         }
         else {
           this.app.notice("Record doesn't Exist");
-
+          this.router.navigate( [ '/' ] );
         }
       }, e => {
         this.app.error(e);
@@ -79,7 +79,7 @@ export class JobViewPage {
   }
 
   onClickClose(){
-    this.router.navigate( [ '/job' ] );
+    this.router.navigate( [ '/' ] );
   }
 
 }
