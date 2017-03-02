@@ -3,7 +3,7 @@ import { Config, SETTING_LANGUAGE } from '../../etc/config';
 import { languageText as text } from '../../etc/language-text';
 
 /**
- * 
+ *
  */
 @Pipe({
   name: 'ln'
@@ -13,7 +13,7 @@ export class LanguagePipe implements PipeTransform {
 
   transform(code: any, args?: any): any {
     if ( code === void 0 ) return 'code undefined';
-    
+
     let language = this.language();
 
     if ( text[code] === void 0 ) return code;
@@ -36,7 +36,7 @@ export class LanguagePipe implements PipeTransform {
     let language_code = Config.language;
     let lc = localStorage.getItem( SETTING_LANGUAGE );
     if ( lc ) language_code = lc;
-    return lc;
+    return language_code;
   }
 
 

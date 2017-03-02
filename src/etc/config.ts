@@ -1,7 +1,7 @@
 /**
  * 동적으로 변하는 값을 여기에 기록하지 않는다.
  * 또한 여기서 설정하는 값은 동적으로 변경시키지 않는다.
- * 
+ *
  */
 declare let navigator;
 let language = navigator.languages && navigator.languages[0] || // Chrome / Firefox
@@ -23,7 +23,7 @@ export let Config = {
 
 
     /**
-     * 
+     *
      * @attention it accesses localStorage.
      */
     getLanguage() : string {
@@ -62,7 +62,7 @@ export let Config = {
       for( let i in args ) {
         str = str.replace('#' + i, args[i]);
       }
-      
+
       return str;
     }
 

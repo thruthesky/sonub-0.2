@@ -1,6 +1,6 @@
 /**
  * @file language-english-korean.pipes.ts
- * 
+ *
  * @see ./README.md for details
  */
 import { Injectable, Pipe, PipeTransform } from '@angular/core';
@@ -16,8 +16,8 @@ export class LanguageEnglishKoreanPipe implements PipeTransform {
 
 
     if ( code === void 0 ) return 'code undefined';
-    
-    
+
+
     let str;
     if ( this.language() == 'en' ) str = code[0];
     else str = code[1];
@@ -34,7 +34,7 @@ export class LanguageEnglishKoreanPipe implements PipeTransform {
     let language_code = Config.language;
     let lc = localStorage.getItem( SETTING_LANGUAGE );
     if ( lc ) language_code = lc;
-    return lc;
+    return language_code;
   }
 
 

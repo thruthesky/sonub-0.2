@@ -41,7 +41,7 @@ export class HomePage {
     };
 
     page_no: number = 0;
-    limit: number = 10;
+    limit: number = 6;
 
     /** Work Experience Variable*/
     numbers = Array.from(new Array(20), (x,i) => i+1);
@@ -115,6 +115,7 @@ export class HomePage {
         return Object.keys( this.cities );
     }
 
+
     searchClear(){
         this.searchBy = {};
         this.searchAll = true;
@@ -177,11 +178,8 @@ export class HomePage {
         if( this.query.name ) this.condition += " AND text_1 LIKE '%"+ this.query.name +"%'";
 
         //gender
-        if( this.query.male != this.query.female ) {
-            let gender = '';
-            //console.log("Male is " + this.query.male,"Female is " + this.query.female );
-            gender = this.query.male ? 'm' : 'f';
-            this.condition += " AND char_1 = '"+ gender +"'";
+        if( this.query.gender != 'all' ) {
+            this.condition += " AND char_1 = '"+ this.query.gender +"'";
         }
 
 
@@ -218,9 +216,12 @@ export class HomePage {
             //this.endScroll();
             return;
         }
-        if ( page.page_no == 1 ) this.pages[0] = page;
+
+        if ( page.page == 1 ) this.pages[0] = page;
         else this.pages.push( page );
         setTimeout( () => this.lazyProcess( page ), 100 );
+
+        console.log('this.pages', this.pages)
     }
 
     lazyProcess( page ) {
@@ -312,5 +313,5 @@ export class HomePage {
         }
 
     }
-    
+
 }

@@ -1,0 +1,111 @@
+home-page {
+  display: block;
+  @include color-combination( 'setting' );
+  //background-color: #404;
+}
+
+
+home-page nav.search-option {         /// search option
+  padding: 0 0 .2em 0;
+  overflow: auto;
+  text-align: center;
+  button {
+    display: block;
+    float: left;
+    padding: .4em 0;
+    border: 0;
+    border-right: 1px solid white;
+    border-radius: 0;
+    width: 33.333%;
+    background-color: #6b7782;
+    color: white;
+  }
+}
+
+
+
+home-page .search-form {            /// search form
+  position: relative;
+  margin-bottom: 1em;
+  padding: .6em;
+  color: #eee;
+  background-color: #74858d;
+  .row-container {
+    margin-bottom: .5em;
+    &>label.text {
+      clear: both;
+    }
+    .text {
+      float: left;
+      margin: 0;
+      padding: 0.4em 0;
+      &.range {
+        width: 4em;
+      }
+    }
+
+    .input {
+      margin-left: 7em;
+      margin-right: 1.6em;
+      &.range {
+        margin-left: 4em;
+        margin-bottom: .5em;
+        margin-right: 0;
+      }
+    }
+
+    .form-check-inline{
+      padding: 0.4em 0;
+      margin-bottom: 0;
+    }
+    .form-check-input {
+      padding: 0.4em 0;
+      margin-left: 0;
+    }
+    &.buttons {
+      text-align: center;
+      button {
+        width: 40%;
+        margin: 0 .5em;
+      }
+    }
+    .my-post {
+      display: block;
+      padding: .4em 0;
+      margin-top: .4em;
+      border: 0;
+      border-radius: 2px;
+      width: 33.333%;
+      background-color: #ffffff;
+      color: #464a4c;
+    }
+  }
+  .close.fa-times {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+  }
+
+}
+
+home-page .search-result {          /// search result
+  width: 100%;
+  display: inline-block;
+  font-size: .8em;
+
+  .search-info {
+    margin-bottom: .4em;
+  }
+
+}
+
+
+home-page .no-more-posts {          /// no more posts.
+  display: none;
+  margin: 1em;
+  text-align: center;
+  font-size: 1.2em;
+  &.active {
+    display: block;
+  }
+}

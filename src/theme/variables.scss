@@ -2,10 +2,10 @@
 @import './module';
 
 /** Variables
- 
+
  *
  */
-$header-top: 54px;
+$header-top: 65px;
 $gutter: 16px;
 
 /** Bootstrap overwrite
@@ -53,9 +53,6 @@ section.content {
  }
 
 .card {
-    float: left;
-    width: 33%;
-    margin: 0 0 1em;
     img {
         width: 100%;
     }
@@ -81,7 +78,7 @@ section.content {
 header {
     nav {
         background-color: #7186a0;
-        color: white;
+        //color: white;
     }
     .post {
         position: absolute;
