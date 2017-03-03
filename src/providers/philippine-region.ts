@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { Api } from './../api/philgo-api/v2/api';
+// 
+// const apiEndpointLocation = 'https://www.philgo.com/etc/location/philippines/json.php';
 
 /*
   Generated class for the Location provider.
@@ -9,14 +12,15 @@ import 'rxjs/add/operator/map';
   for more info on providers and Angular 2 DI.
 */
 @Injectable()
-export class PhilippineRegion {
-
+export class PhilippineRegion extends Api {
   constructor(public http: Http) {
+      // this.api = new Api( http );
+    super( http );
     console.log('Location::constructor');
   }
 
   get_province( successCallback, errorCallback) {
-    this.http.get( 'http://hello.philgo.com/etc/location/philippines/json.php' )
+    this.http.get( this.apiEndpointLocation )
         .subscribe( data => {
             try {
                 let re = JSON.parse( data['_body'] );
@@ -30,7 +34,7 @@ export class PhilippineRegion {
   }
 
     get_cities( data, successCallback, errorCallback) {
-        this.http.get( 'http://hello.philgo.com/etc/location/philippines/json.php?province='+data )
+        this.http.get( this.apiEndpointLocation + '?province='+data )
             .subscribe( data => {
                 try {
                     let re = JSON.parse( data['_body'] );

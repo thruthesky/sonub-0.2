@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Member, MEMBER_LOGIN_DATA } from '../../api/philgo-api/v2/member';
+import { Member } from '../../api/philgo-api/v2/member';
 import { App } from "../../providers/app";
 import { Router } from '@angular/router';
 import {MEMBER_LOGIN} from "../../api/philgo-api/v2/philgo-api-interface";
