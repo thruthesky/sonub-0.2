@@ -37,13 +37,13 @@ export class HomePage {
     };
 
     page_no: number = 0;
-    limit: number = 6;
+    limit: number = 15;
 
     /** Work Experience Variable*/
     numbers = Array.from(new Array(20), (x,i) => i+1);
 
     /** Min and Max Age Variables*/
-    minAge: number = 1;
+    minAge: number = 18;
     maxAge: number = 60;
     minAgeRange = Array.from(new Array( this.maxAge - this.minAge), (x,i) => i+1);
     maxAgeRange = this.minAgeRange;

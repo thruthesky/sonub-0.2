@@ -32,7 +32,7 @@ export class JobPostPage{
     varchar_2: 'all', //province
     varchar_3: 'all', //city
     varchar_4: '', //mobile
-    varchar_5: '2010-01-25', //birthday
+    varchar_5: '1999-01-25', //birthday
     varchar_6: '', //Personal Content
     int_1: '0', //work experience
     int_2: '', //year
