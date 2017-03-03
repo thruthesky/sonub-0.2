@@ -58,6 +58,10 @@ export class JobPostPage{
   inputFileValue: string = null;
   cordova: boolean = false;
 
+
+  today = new Date();
+  currentYear = this.today.getFullYear();
+
   constructor(
     private region: PhilippineRegion,
     private post: Post,
@@ -163,6 +167,12 @@ export class JobPostPage{
       this.form['int_2'] = str[0]; //year
       this.form['int_3'] = str[1]; //month
       this.form['int_4'] = str[2]; //day
+
+      this.form.subject = this.form.sub_category + '-'  //profession
+        + ( this.form.char_1 == 'M' ? 'Male' : 'Female' ) + '-'   //gender
+        + this.form.varchar_2 + '-'   //province
+        + ( this.currentYear - parseInt( this.form.int_2 ) ) + 'years old';  //age
+      this.form.content = this.form.subject;
     }
     if(this.form.idx) {
       this.updatePost();

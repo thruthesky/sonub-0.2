@@ -1,7 +1,19 @@
-
+/*
 $content-width: 960px; // 960px is best fit for desktop.
 $break-point: 760px; // 760px is best fit. this is the 'app.size' break point.
 $break-sm: 540px;           // bootstrap 'sm' size break
+*/
+
+$break-sm: 576px;
+$break-md: 768px;
+$break-lg: 992px;
+$break-xl: 1200px;
+
+
+$content-width: $break-lg;
+$break-point: $break-md;
+
+
 $header-height: 4.625rem;
 $left-width: 12.5rem;
 $right-width: 10rem;

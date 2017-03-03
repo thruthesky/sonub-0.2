@@ -12,7 +12,7 @@ export class ReloadPage {
               location: Location
   ) {
     activated.params.subscribe( param => {
-      console.log("Reload::constructor::subscribe()")
+      //console.log("Reload::constructor::subscribe()")
       if ( param['url'] !== void 0 ) {
         location.back();
       }

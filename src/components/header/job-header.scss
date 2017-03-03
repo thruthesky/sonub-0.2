@@ -13,9 +13,12 @@ job-header {
             }
         }
     }
-    header.navbar.navbar-fixed-top {
+    header.navbar {
+      padding: 0;
+      .navbar-fixed-top {
         margin: 0 ;
         padding: $gutter;
+      }
     }
     .alert { display: none; }
 

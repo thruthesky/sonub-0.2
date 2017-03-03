@@ -5,7 +5,7 @@
 
  *
  */
-$header-top: 65px;
+$header-top: 47px;
 $gutter: 16px;
 
 /** Bootstrap overwrite
@@ -17,7 +17,7 @@ $gutter: 16px;
 /** Bootstrap break points;
  *
  */
-$break-sm: 576x;
+$break-sm: 576px;
 $break-md: 768px;
 $break-lg: 992px;
 $break-xl: 1200px;
@@ -78,7 +78,7 @@ section.content {
 header {
     nav {
         background-color: #7186a0;
-        //color: white;
+        padding: 0 .5em;
     }
     .post {
         position: absolute;
@@ -94,8 +94,9 @@ header {
 }
 
 .active {
-    display: inline-block!important;
+    display: flex!important;;
     &>label,select {
+        margin-right: .5rem;
         float: left;
     }
 }

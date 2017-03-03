@@ -15,144 +15,145 @@
 </header-->
 
 <section class="content">
-
-
-
-
   <nav class="search form-inline">
-
-
-
-
-    <label class="mr-sm-2" for="profession">I look for</label>
-    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="profession" name="profession" [(ngModel)]="query.sub_category" (change)="search(true)">
-      <option value="all">Profession</option>
-      <option value="housemaid">Housemaid</option>
-      <option value="driver">Driver</option>
-      <option value="babysitter">Babysitter</option>
-    </select>
-
-
-
+    <div class="active">
+      <label class="mr-sm-2" for="profession">I look for</label>
+      <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="profession" name="profession" [(ngModel)]="query.sub_category" (change)="search(true)">
+        <option value="all">Profession</option>
+        <option value="housemaid">Housemaid</option>
+        <option value="driver">Driver</option>
+        <option value="babysitter">Babysitter</option>
+      </select>
+    </div>
     <div class="more" [class.active]=" query.sub_category != 'all'">
-
       <label class="mr-sm-2" for="province">lives in</label>
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="province" [(ngModel)]="query.varchar_2" (change)="onClickProvince()">
         <option value="all">{{ ek('All', '전 지역') }}</option>
         <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
       </select>
+    </div>
 
+    <div class="more" [class.active]=" query.sub_category != 'all'">
       <label class="mr-sm-2" for="city" *ngIf="showCities">city of</label>
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="city" [(ngModel)]="query.varchar_3" (change)="search(true)" *ngIf="showCities">
         <option *ngFor="let key of cityKeys" [value]="key">{{cities[key]}}</option>
       </select>
+    </div>
 
-
-
+    <div class="more" [class.active]=" query.sub_category != 'all'">
       <label class="mr-sm-2" for="minAge">age between</label>
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="minAge" [(ngModel)]="minAgeSelected" (change)="minRangeChange()">
         <option [value]="minAge">{{minAge}}</option>
         <option *ngFor="let min of minAgeRange" [value]="min+minAge">{{min+minAge}}</option>
       </select>
+    </div>
 
-
-
+    <div class="more" [class.active]=" query.sub_category != 'all'">
       <label class="mr-sm-2" for="maxAge">and</label>
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="maxAge" [(ngModel)]="maxAgeSelected" (change)="maxRangeChange()">
         <option *ngFor="let max of maxAgeRange" [value]="max+betweenAge">{{max+betweenAge}}</option>
         <option [value]="maxAge">{{maxAge}}</option>
       </select>
+    </div>
 
-
-
-
+    <div class="more" [class.active]=" query.sub_category != 'all'">
       <label class="mr-sm-2" for="gender">Gender</label>
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="gender" [(ngModel)]="query.gender"  (change)="search(true)">
         <option value="all">Both</option>
         <option value="m">{{ ek('Male','남') }}</option>
         <option value="f">{{ ek('Female', '여') }}</option>
       </select>
+    </div>
 
-
-
+    <div class="more" [class.active]=" query.sub_category != 'all'">
       <label class="mr-sm-2" for="experience">Experience</label>
       <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="experience" [(ngModel)]="query.int_1" (change)="search(true)">
         <option value="all">{{ ek('All','경력 무관') }}</option>
         <option value="0">{{ ek('No Work Experience', '경력이 없는 사람만') }}</option>
         <option *ngFor="let number of numbers" [value]="number">{{number}} {{ ek('years', '년') }}</option>
       </select>
-
-
-
-
     </div>
-
-
-
-    <!--button type="submit" class="btn btn-primary">Submit</button-->
-
-
   </nav>
 
 
 
 
-  <div class="jumbotron">
+  <!--div class="jumbotron">
     <h1 class="display-5">Hello, world!</h1>
     <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-  </div>
-
+  </div-->
   <ng-container *ngFor="let page of pages">
     <div class="card-deck" >
-      <post-card
-        [post] = " page.search[0] "
-      ></post-card>
-      <post-card
-        [post] = " page.search[1] "
-      ></post-card>
-      <post-card
-        [post] = " page.search[2] "
-      ></post-card>
-    </div>
+      <ng-container *ngFor=" let post of page ">
+        <div class="card" *ngIf="post?.idx && post?.deleted == '0' ">
+          <img class="card-img-top" src="{{post?.photos?.length ? post.photos[0]['url_thumbnail'] : urlPhoto}}" alt="{{post.text_1}}">
+          <div class="card-block">
+            <!--h4 class="card-title">Card title</h4-->
+            <p class="card-text">{{post?.text_1}} {{post?.text_2}} {{post?.text_3}}</p>
+            <p class="card-text">{{ t( post?.sub_category ) }}, {{ post?.char_1 }}/{{ currentYear - post?.int_2 }}{{ ek('','세') }}</p>
+            <p class="card-text">{{ t('mobile') }} : {{post?.varchar_4}}</p>
+            <p class="card-text">{{ t('experience') }} : {{post?.int_1}}{{ t('years') }}</p>
+            <p class="card-text">{{ ek('Address','경력') }} : {{post?.varchar_1}}</p>
+            <div class="text">{{ ek('Province','경력') }} : {{post?.varchar_2}}</div>
+            <p class="card-text">{{ ek('City','지역') }} : {{post?.varchar_3}}</p>
+            <!--p class="card-text">{{post.varchar_6}}</p-->
+            <p class="share link">
+              <span class="text">{{ ek('Share', '링크') }} : </span>
+              <label class="shareLink text">{{post?.link}}</label>
+            </p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted"></small>
+          </div>
 
 
+          <!--ul class="action-group">
+            <li class="cursor" *ngIf=" post.more && post.member.id == login.id " (click)="onClickEdit(post.idx)">
 
-    <br><br><br>
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+            </span>
 
-    <div class="card-deck" >
-      <div class="card">{{page.search[0].text_1}}</div>
-      <div class="card">{{page.search[1].text_1}}</div>
-      <div class="card">{{page.search[2].text_1}}</div>
+              <div>Edit</div>
+            </li>
+            <li class="cursor" *ngIf=" post.more && post.member.id == login.id " (click)="onClickDelete( post )">
+
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+            </span>
+
+              <div>Delete</div>
+            </li>
+            <li class="cursor" *ngIf=" ! cordova " (click)="post.share = !post.share">
+
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
+            </span>
+              <div>{{ ek('Share', '링크') }}</div>
+            </li>
+            <li class="cursor" (click)=" post.more = ! post.more ">
+
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-stack-1x fa-inverse" [ngClass]="{ 'fa-angle-double-up' : post.more, 'fa-angle-double-down' : !post.more}"></i>
+            </span>
+              <div>{{ post.more  ? ek('Less','닫기') : ek('More','더보기') }}</div>
+
+
+            </li>
+          </ul-->
+        </div>
+
+
+      </ng-container>
     </div>
   </ng-container>
 
 
-
-  <!--ng-container *ngFor=" let page of pages ">
-    <ng-container  *ngFor=" let post of page['search'] ">
-        <div class="card" *ngIf="post.idx && post.deleted == '0' ">
-          <img class="card-img-top" src="{{post.photos.length ? post.photos[0]['url_thumbnail'] : urlPhoto}}" alt="{{post.text_1}}">
-          <div class="card-block">
-            <!--h4 class="card-title">Card title</h4>
-            <p class="card-text">{{post.text_1}} {{post.text_2}} {{post.text_3}}</p>
-            <p class="card-text">{{ t( post.sub_category ) }}</p>
-            <p class="card-text">{{ currentYear - post.int_2 }}{{ ek('','세') }}</p>
-            <p class="card-text">{{ t('mobile') }} : {{post.varchar_4}}</p>
-            <p class="card-text">{{ t('experience') }} : {{post.int_1}}{{ t('years') }}</p>
-            <p class="card-text">{{ ek('Address','경력') }} : {{post.varchar_1}}</p>
-            <div class="text">{{ ek('Province','경력') }} : {{post.varchar_2}}</div>
-            <p class="card-text">{{ ek('City','지역') }} : {{post.varchar_3}}</p>
-            <!--p class="card-text">{{post.varchar_6}}</p>
-            <div class="share link">
-              <span class="text">{{ ek('Share', '링크') }}</span>
-              <input class="shareLink text cursor" onClick="this.setSelectionRange(0, this.value.length)" value="{{post.link}}" readonly/>
-            </div>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </div>
-        </div>
-    </ng-container><!--/.col-xx-x>
-  </ng-container><!--/.page.posts.row-->
+  <div [class.active]=" ! noMorePosts " class="no-more-posts in-page-loading"><i class="fa fa-spinner fa-spin"></i> {{ ek('Loading', '불러오는 중') }} ...</div>
+  <div [class.active]=" noMorePosts " class="no-more-posts">{{ ek('No more posts', '더 이상 검색 결과가 없습니다.') }}</div>
 
 </section>

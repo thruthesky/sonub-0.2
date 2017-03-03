@@ -7,7 +7,7 @@
                     <!--img class="logo fa fa-stack-1x" src="assets/img/philgo-logo.png"-->
                     <i class="font fa fa-home fa-stack-1x fa-inverse"></i>
                 </span>
-        <div class="text">{{ ['Home', '홈'] | ek }}</div>
+        <div class="text">{{ ['Sonub', 'Sonub'] | ek }}</div>
       </li>
       <li class="job-post" (click)="onClickRoute('/post')">
                 <span class="icon fa-stack fa-lg">
@@ -31,13 +31,6 @@
         <div>{{ ['Login', '로그인'] | ek }}</div>
       </li>
 
-      <!--li class="help" (click)="onClickRoute('/help')">
-                <span class="icon fa-stack fa-lg">
-                    <i class="background fa fa-circle fa-stack-2x"></i>
-                    <i class="font fa fa-whatsapp fa-stack-1x fa-inverse"></i>
-                </span>
-        <div>{{ ['Help', '도움말'] | ek }}</div>
-      </li-->
 
       <li class="register" *ngIf=" login " (click)="onClickLogout()">
                 <span class="icon fa-stack fa-lg">
@@ -47,12 +40,6 @@
         <div class="text">{{ ['Logout', '로그아웃'] | ek }}</div>
       </li>
 
-      <!--li class="all-menu cursor" nowrap (click)="onClickMenu( $event )">
-        <i class="icon fa fa-bars fa-inverse"></i>
-        <div class="text">{{ ['Menu', '전체메뉴'] | ek }}</div>
-      </li-->
     </ul>
   </nav>
 </header>
-<!--job-main-menu [class]=" app.menu ? 'active' : '' "></job-main-menu-->
-

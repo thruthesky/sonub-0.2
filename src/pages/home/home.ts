@@ -11,8 +11,6 @@ import { Config } from "../../etc/config";
 import * as _ from 'lodash';
 
 
-//import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-//import { NoticeModalContent } from '../../components/modals/notice/notice';
 @Component( {
     selector: 'home-page',
     templateUrl: 'home.html'
@@ -24,9 +22,7 @@ export class HomePage {
 
     sharePath = 'view';
 
-    login: MEMBER_LOGIN = {
-        id: ''
-    };
+  login: MEMBER_LOGIN = null;
 
     /** Search Query */
     query = {
@@ -193,7 +189,7 @@ export class HomePage {
         //console.log('###############doSearch###############');
         let page = this.page_no++;
         let data = <SEARCH_QUERY_DATA> {};
-        data.fields = "deleted,idx,idx_member,gid,sub_category,post_id,text_1,text_2,text_3,int_1,int_2,int_3,int_4,char_1,varchar_1,varchar_2,varchar_3,varchar_4,varchar_6";
+        data.fields = "deleted,idx,stamp,idx_member,gid,sub_category,post_id,text_1,text_2,text_3,int_1,int_2,int_3,int_4,char_1,varchar_1,varchar_2,varchar_3,varchar_4,varchar_6";
         data.from = "sf_post_data";
         data.where = "post_id = 'jobs' AND idx_parent=0" + this.condition;
         data.limit = this.limit.toString();
@@ -202,7 +198,7 @@ export class HomePage {
         data.post = 1;
         //this.post.debug = true;
         this.post.search( data, re => {
-            console.log("search result: ", re);
+            //console.log("search result: ", re);
             this.displayPosts( re );
         }, error => this.app.error("error on search: " + error ) );
     }
@@ -217,18 +213,56 @@ export class HomePage {
             return;
         }
 
-        if ( page.page == 1 ) this.pages[0] = page;
-        else this.pages.push( page );
-        setTimeout( () => this.lazyProcess( page ), 100 );
+        this.chunkPage( page );
 
-        console.log('this.pages', this.pages)
+
+//        if ( page.page == 1 ) this.pages[0] = page;
+//        else this.pages.push( page );
+
+
+
+//        setTimeout( () => this.lazyProcess( page ), 100 );
     }
 
+    chunkPage( page ) {
+
+      let posts = page.search;
+
+
+      for( let i = 0; i < posts.length; i = i + 3 ) {
+        setTimeout( () => {
+          this.pages.push( this.pres(posts.slice( i, i+3 )) );
+          this.app.renderPage();
+        }, i * 30 ); // lazy call
+      }
+
+
+    }
+
+
+    pres( arr: any ) {
+      //console.log('pres:', arr);
+
+      return arr.map( e => this.pre(e) );
+    }
+    pre( post ) {
+      post['date'] = this.post.getDateTime( post.stamp );
+      if ( post.comments !== void 0 ) post.comments.map( comment => comment['date'] = this.post.getDateTime( comment.stamp ) );
+
+      post['link'] = this.post.getPermalink( post, this.sharePath )
+
+      return post;
+    }
+
+  showPages(){
+    console.log('showPages::this.pages', this.pages);
+  }
+
+    /*
     lazyProcess( page ) {
         if ( page.search.length == 0 ) {
             return;
         }
-
         // for date.
         page.search.map( post => {
             post['date'] = this.post.getDateTime( post.stamp );
@@ -239,11 +273,11 @@ export class HomePage {
         // for link
         page.search.map( post => post['link'] = this.post.getPermalink( post, this.sharePath ) );
 
+
         //redraw
         this.app.renderPage();
-
     }
-
+*/
 
     onClickProvince() {
         if( this.query.varchar_2 != 'all') {
