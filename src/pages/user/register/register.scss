@@ -1,8 +1,8 @@
-sonub-register-page {
+register-page {
   display: block;
   @include color-combination( 'user' );
   h1 {
-    margin: 0;
+    margin: 0 0 1em;
     padding: .4em 0 .2em .8em;
     border-left: 4px solid grey;
     font-weight: normal;
@@ -10,48 +10,6 @@ sonub-register-page {
     background-color: #efefef;
   }
   .center form {
-
-    .primary-photo {
-      position: relative;
-      margin: .5em auto;
-      width: 14em;
-      max-height: 14em;
-
-      overflow: hidden;
-      img {
-        width: 100%;
-      }
-
-      .camera {
-        position: absolute;
-        z-index: 80;
-        left: .6em;
-        bottom: .6em;
-      }
-      input {
-        position: absolute;
-        z-index: 100;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        font-size: 30em;
-        opacity: .001;
-      }
-    }
-
-    button.delete {
-      display: block;
-      margin: 1em auto;
-      padding: .6em .8em;
-      border: 0;
-      width: 14em;
-      background-color: #779999;
-      color: white;
-    }
-
-    progress.progress {
-      margin: 1em auto;
-    }
 
     .row-container {
       margin-bottom: .8em;

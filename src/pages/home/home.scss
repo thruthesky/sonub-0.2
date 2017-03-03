@@ -22,6 +22,7 @@ home-page .content {
     margin-bottom: 1em;
     @media all and ( max-width: $break-sm - 1 ) {
       .card {
+        margin-bottom: 1em;
         img.card-img-top {
           width:50%;
           margin: 0 auto;
@@ -29,16 +30,30 @@ home-page .content {
       }
     }
     .card {
-      img.card-img-top {
-
-      }
       .share {
         .shareLink {
           word-break: break-all;
         }
       }
+      &.dummy { // hiding the dummy content that was added to make the flex divisible by 3
+        border: 1px solid transparent;
+        &>img,div {
+          display: none!important;
+        }
+      }
+      .card-footer {
+        .nav-click {
+          float: left;
+          width: 50%;
+          text-align: center;
+        }
+
+      }
     }
   }
+
+
+
 
 }
 
@@ -72,6 +87,15 @@ home-page .no-more-posts {
   text-align: center;
   font-size: 1.2em;
   &.active {
-    display: block;
+    display: block!important;
+  }
+
+  &.in-page-loading {
+    margin-left: 1em;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    .fa.fa-spinner {
+      font-size: 2.5rem;
+    }
   }
 }

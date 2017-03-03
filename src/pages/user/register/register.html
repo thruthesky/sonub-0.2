@@ -7,29 +7,6 @@
     <h1 *ngIf=" login ">{{ ['Account Update', '회원 정보 수정'] | ek }}</h1>
 
     <form>
-      <fieldset class="photo-container">
-        <div class="primary-photo" (click)="onClickPrimaryPhoto()">
-                    <span class="camera fa-stack fa-lg">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-camera fa-stack-1x fa-inverse"></i>
-                    </span>
-          <img [src]="urlPhoto">
-          <input *ngIf=" ! cordova " type="file" name="inputFile" [(ngModel)]="inputFileValue" #file (change)="onChangeFile($event, file.value)">
-        </div><!--/primary-photo-->
-
-        <button *ngIf=" urlPhoto != urlDefault " class="delete" (click)="onDeletePhoto()">
-          <i *ngIf=" ! inDeleting " class="fa fa-trash"></i>
-          <i *ngIf=" inDeleting " class="fa fa-spinner fa-spin"></i>
-          {{ ['DELETE PHOTO', '사진 삭제'] | ek }}
-        </button>
-
-        <!-- This supports IE 9. IE 9 does not support HTML 5 -->
-        <progress *ngIf=" showProgress " class="progress" value="{{ progress }}" max="100">
-          <div class="progress">
-            <span class="progress-bar" [style.width]="widthProgress"></span>
-          </div>
-        </progress>
-      </fieldset>
 
       <fieldset *ngIf=" ! login " class="row-container">
         <label for="inputID" class="text">{{ ['User ID', '아이디'] | ek }}</label>
@@ -39,23 +16,23 @@
         <label for="inputPassword" class="text">{{ ['Password', '비밀번호'] | ek }}</label>
         <div class="input"><input [(ngModel)]="form.password" class="form-control" name="password" type="password" id="inputPassword" placeholder="Input Password" autocomplete="off"></div>
       </fieldset>
-      <fieldset class="row-container">
+      <!--fieldset class="row-container">
         <label for="inputName" class="text">{{ ['Name', '이름'] | ek }}</label>
         <div class="input"><input [(ngModel)]="form.name" class="form-control" name="name" type="text" id="inputName" placeholder="Input Name" autocomplete="off"></div>
-      </fieldset>
+      </fieldset-->
       <fieldset class="row-container">
         <label for="inputEmail" class="text">{{ ['Email', '이메일'] | ek }}</label>
         <div class="input"><input [(ngModel)]="form.email" class="form-control" name="email" type="email" id="inputEmail" placeholder="Input Email" autocomplete="off"></div>
       </fieldset>
-      <fieldset class="row-container">
+      <!--fieldset class="row-container">
         <label for="inputMobile" class="text">{{ ['Mobile', '모바일'] | ek }}</label>
         <div class="input">
           <input [(ngModel)]="form.mobile" class="form-control" name="mobile" type="number" id="inputMobile" placeholder="Input your phone number." autocomplete="off">
           <div class="text-muted">{{ ['Input digits only', '숫자만 입력하세요.'] | ek }}</div>
         </div>
-      </fieldset>
+      </fieldset-->
 
-      <fieldset class="row-container">
+      <!--fieldset class="row-container">
         <label class="text">{{ ['Gender','성별'] | ek }}</label>
         <div class="input">
           <label for="inputGenderM" class="form-check-inline">
@@ -67,12 +44,12 @@
             {{ ['Female','여'] | ek }}
           </label>
         </div>
-      </fieldset>
+      </fieldset-->
 
-      <fieldset class="row-container">
+      <!--fieldset class="row-container">
         <label for="inputBirthday" class="text">{{ ['Birth Day','생년월일'] | ek }}</label>
         <div class="input"><input [(ngModel)]="form.birthday" class="form-control" name="birthday" type="date" id="inputBirthday"></div>
-      </fieldset>
+      </fieldset-->
 
 
       <fieldset  class="row-container buttons">

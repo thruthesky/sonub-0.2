@@ -2,7 +2,7 @@ import { Component, Renderer } from '@angular/core';
 import { Router } from "@angular/router";
 
 import { Member, MEMBER_LOGIN } from '../../api/philgo-api/v2/member';
-import {PAGES, SEARCH_QUERY_DATA} from "../../api/philgo-api/v2/philgo-api-interface";
+import { PAGES, SEARCH_QUERY_DATA } from "../../api/philgo-api/v2/philgo-api-interface";
 import { PhilippineRegion } from "../../providers/philippine-region";
 import { App } from "../../providers/app";
 import { PageScroll } from "../../providers/page-scroll";
@@ -22,7 +22,7 @@ export class HomePage {
 
     sharePath = 'view';
 
-  login: MEMBER_LOGIN = null;
+    login: MEMBER_LOGIN = null;
 
     /** Search Query */
     query = {
@@ -72,6 +72,11 @@ export class HomePage {
     today = new Date();
     currentYear = this.today.getFullYear();
 
+
+    dummy = {
+      content: 'dummy',
+      deleted: '0'
+    };
 
 
     constructor(
@@ -229,14 +234,21 @@ export class HomePage {
       let posts = page.search;
 
 
+      //this will add dummy content to make the flex box divisible by 3
+      let d = ( posts.length) % 3;
+      if( d != 0) {
+        for(let x = d; x < 3; x++ ) {
+          posts.push( this.dummy );
+        }
+      }
+
+
       for( let i = 0; i < posts.length; i = i + 3 ) {
         setTimeout( () => {
           this.pages.push( this.pres(posts.slice( i, i+3 )) );
           this.app.renderPage();
         }, i * 30 ); // lazy call
       }
-
-
     }
 
 
@@ -249,7 +261,7 @@ export class HomePage {
       post['date'] = this.post.getDateTime( post.stamp );
       if ( post.comments !== void 0 ) post.comments.map( comment => comment['date'] = this.post.getDateTime( comment.stamp ) );
 
-      post['link'] = this.post.getPermalink( post, this.sharePath )
+      if ( post.idx !== void 0 ) post['link'] = this.post.getPermalink( post, this.sharePath );
 
       return post;
     }
@@ -347,5 +359,25 @@ export class HomePage {
         }
 
     }
+
+  onClickDelete( event , post ) {
+      event.stopPropagation();
+    let re = confirm("Are you sure you want to delete this post?");
+    if ( re ) {
+      this.post.delete( post.idx, re => {
+          this.app.notice("Successful on Deleting this post...");
+          post.idx = null;
+        },
+        error => this.post.error("delete error: " + error )
+      );
+    }
+    else {
+      //console.log('delete Was Canceled');
+    }
+  }
+
+  onClickEdit(idx){
+    this.router.navigate(['/post', idx]);
+  }
 
 }

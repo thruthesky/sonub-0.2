@@ -85,69 +85,27 @@
   <ng-container *ngFor="let page of pages">
     <div class="card-deck" >
       <ng-container *ngFor=" let post of page ">
-        <div class="card" *ngIf="post?.idx && post?.deleted == '0' ">
+        <div class="card" *ngIf="post?.deleted == '0' " [class.dummy]=" post?.content == 'dummy' " (click)=" post.active = ! post?.active">
           <img class="card-img-top" src="{{post?.photos?.length ? post.photos[0]['url_thumbnail'] : urlPhoto}}" alt="{{post.text_1}}">
           <div class="card-block">
             <!--h4 class="card-title">Card title</h4-->
             <p class="card-text">{{post?.text_1}} {{post?.text_2}} {{post?.text_3}}</p>
             <p class="card-text">{{ t( post?.sub_category ) }}, {{ post?.char_1 }}/{{ currentYear - post?.int_2 }}{{ ek('','세') }}</p>
             <p class="card-text">{{ t('mobile') }} : {{post?.varchar_4}}</p>
-            <p class="card-text">{{ t('experience') }} : {{post?.int_1}}{{ t('years') }}</p>
-            <p class="card-text">{{ ek('Address','경력') }} : {{post?.varchar_1}}</p>
-            <div class="text">{{ ek('Province','경력') }} : {{post?.varchar_2}}</div>
-            <p class="card-text">{{ ek('City','지역') }} : {{post?.varchar_3}}</p>
-            <!--p class="card-text">{{post.varchar_6}}</p-->
-            <p class="share link">
+            <p class="card-text"  *ngIf="post.active">{{ t('experience') }} : {{post?.int_1}}{{ t('years') }}</p>
+            <p class="card-text"  *ngIf="post.active">{{ ek('Address','경력') }} : {{post?.varchar_1}}</p>
+            <div class="text"     *ngIf="post.active">{{ ek('Province','경력') }} : {{post?.varchar_2}}</div>
+            <p class="card-text"  *ngIf="post.active">{{ ek('City','지역') }} : {{post?.varchar_3}}</p>
+            <p class="share link" *ngIf="post.active">
               <span class="text">{{ ek('Share', '링크') }} : </span>
               <label class="shareLink text">{{post?.link}}</label>
             </p>
           </div>
-          <div class="card-footer">
-            <small class="text-muted"></small>
+          <div class="card-footer" *ngIf=" post.active && post?.member?.id == login?.id " >
+            <div class="nav-click" (click)="onClickDelete( $event, post )"><i class="fa fa-trash-o"></i> Delete</div>
+            <div class="nav-click" (click)="onClickEdit( post.idx )"><i class="fa fa-pencil"></i> Edit</div>
           </div>
-
-
-          <!--ul class="action-group">
-            <li class="cursor" *ngIf=" post.more && post.member.id == login.id " (click)="onClickEdit(post.idx)">
-
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x"></i>
-              <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-            </span>
-
-              <div>Edit</div>
-            </li>
-            <li class="cursor" *ngIf=" post.more && post.member.id == login.id " (click)="onClickDelete( post )">
-
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x"></i>
-              <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-            </span>
-
-              <div>Delete</div>
-            </li>
-            <li class="cursor" *ngIf=" ! cordova " (click)="post.share = !post.share">
-
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x"></i>
-              <i class="fa fa-share-alt fa-stack-1x fa-inverse"></i>
-            </span>
-              <div>{{ ek('Share', '링크') }}</div>
-            </li>
-            <li class="cursor" (click)=" post.more = ! post.more ">
-
-            <span class="fa-stack fa-lg">
-              <i class="fa fa-circle fa-stack-2x"></i>
-              <i class="fa fa-stack-1x fa-inverse" [ngClass]="{ 'fa-angle-double-up' : post.more, 'fa-angle-double-down' : !post.more}"></i>
-            </span>
-              <div>{{ post.more  ? ek('Less','닫기') : ek('More','더보기') }}</div>
-
-
-            </li>
-          </ul-->
         </div>
-
-
       </ng-container>
     </div>
   </ng-container>

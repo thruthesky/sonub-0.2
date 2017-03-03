@@ -20,7 +20,9 @@ export class RegisterPage {
     login: MEMBER_LOGIN = null;
     memberData: MEMBER_DATA = null;
 
-    form = < MEMBER_REGISTER_DATA > {};
+    form = < MEMBER_REGISTER_DATA > {
+      mobile: '0000-000-0000',
+    };
     process = formProcess.reset();
 
     urlDefault: string = "assets/img/anonymous.gif";
@@ -73,9 +75,9 @@ export class RegisterPage {
             if ( data.user_url_primary_photo ) this.urlPhoto = data.user_url_primary_photo;
             this.form.name = data.name;
             this.form.email = data.email;
-            this.form.gender = data.gender;
+            //this.form.gender = data.gender;
             this.form.mobile = data.mobile;
-            this.form.birthday = this.member.getBirthdayFormValue( data );
+           // this.form.birthday = this.member.getBirthdayFormValue( data );
         }, error => {
             console.log('error: ', error);
         });
@@ -100,17 +102,18 @@ export class RegisterPage {
     onClickRegister() {
       if( ! this.form.id ) return this.process.setError( 'Please input user ID...' );
       if( ! this.form.password ) return this.process.setError( 'Please enter password...' );
-      if( ! this.form.name ) return this.process.setError( 'Please input name...' );
+      //if( ! this.form.name ) return this.process.setError( 'Please input name...' );
       if( ! this.form.email ) return this.process.setError( 'Please enter email...' );
-      if( ! this.form.mobile ) return this.process.setError( 'Please input mobile number...' );
-      if( ! this.form.gender ) return this.process.setError( 'Please select gender...' );
-      if( ! this.form.birthday ) return this.process.setError( 'Please input birthday...' );
+      //if( ! this.form.mobile ) return this.process.setError( 'Please input mobile number...' );
+      //if( ! this.form.gender ) return this.process.setError( 'Please select gender...' );
+      //if( ! this.form.birthday ) return this.process.setError( 'Please input birthday...' );
         this.register();
     }
 
     register() {
         this.process.begin();
-        this.form.nickname = this.form.name;
+        this.form.nickname = this.form.name = this.form.id;
+
         this.member.register( this.form, (login) => {
             // register success
             console.log('onClickRegister(), registration sucess: ', login );
