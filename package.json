@@ -1,6 +1,6 @@
 {
-  "name": "aonic-hello-world",
-  "author": "Aonic Framework",
+  "name": "SonubJob",
+  "author": "Withcenter Inc",
   "homepage": "http://github.com/thruthesky/aonic",
   "private": true,
   "scripts": {
@@ -44,5 +44,5 @@
     "cordova-plugin-splashscreen"
   ],
   "cordovaPlatforms": [],
-  "description": "hack2: An Ionic project"
+  "description": "Sonub Job"
 }

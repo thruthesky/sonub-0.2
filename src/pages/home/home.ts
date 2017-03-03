@@ -78,6 +78,8 @@ export class HomePage {
       deleted: '0'
     };
 
+    cordova = true;
+
 
     constructor(
         private region: PhilippineRegion,
@@ -87,6 +89,8 @@ export class HomePage {
         private pageScroll: PageScroll,
         public app: App,
         private router: Router ) {
+
+      this.cordova = this.post.isCordova();
         member.getLogin( x => {
             this.login = x;
         });

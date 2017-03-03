@@ -96,7 +96,7 @@
             <p class="card-text"  *ngIf="post.active">{{ ek('Address','경력') }} : {{post?.varchar_1}}</p>
             <div class="text"     *ngIf="post.active">{{ ek('Province','경력') }} : {{post?.varchar_2}}</div>
             <p class="card-text"  *ngIf="post.active">{{ ek('City','지역') }} : {{post?.varchar_3}}</p>
-            <p class="share link" *ngIf="post.active">
+            <p class="share link" *ngIf="post.active && !cordova">
               <span class="text">{{ ek('Share', '링크') }} : </span>
               <label class="shareLink text">{{post?.link}}</label>
             </p>
