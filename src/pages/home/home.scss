@@ -33,6 +33,7 @@ home-page .content {
       .share {
         .shareLink {
           word-break: break-all;
+          cursor: pointer;
         }
       }
       &.dummy { // hiding the dummy content that was added to make the flex divisible by 3
@@ -42,10 +43,13 @@ home-page .content {
         }
       }
       .card-footer {
+        padding: 0;
         .nav-click {
-          float: left;
-          width: 50%;
+          //float: left;
+          //width: 50%;
+          padding: .5em 0;
           text-align: center;
+          cursor: pointer;
         }
 
       }

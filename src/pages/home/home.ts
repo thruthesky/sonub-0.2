@@ -178,7 +178,7 @@ export class HomePage {
             this.condition += " AND varchar_3 = '"+ this.query.varchar_3 +"'";
         }
         //work experience
-        if( this.query.int_1 != 'all') this.condition += " AND int_1 = '"+ this.query.int_1 +"'";
+        if( this.query.int_1 != 'all') this.condition += " AND int_1 >= '"+ this.query.int_1 +"'";
         //name
         if( this.query.name ) this.condition += " AND text_1 LIKE '%"+ this.query.name +"%'";
 
@@ -200,14 +200,14 @@ export class HomePage {
         let data = <SEARCH_QUERY_DATA> {};
         data.fields = "deleted,idx,stamp,idx_member,gid,sub_category,post_id,text_1,text_2,text_3,int_1,int_2,int_3,int_4,char_1,varchar_1,varchar_2,varchar_3,varchar_4,varchar_6";
         data.from = "sf_post_data";
-        data.where = "post_id = 'jobs' AND idx_parent=0 AND deleted = 0" + this.condition;
+        data.where = "post_id = 'jobs' AND idx_parent=0 AND deleted=0" + this.condition;
         data.limit = this.limit.toString();
         data.orderby = "idx desc";
         data.page = page;
         data.post = 1;
         //this.post.debug = true;
         this.post.search( data, re => {
-            //console.log("search result: ", re);
+            console.log("search result: ", re);
             this.displayPosts( re );
         }, error => this.app.error("error on search: " + error ) );
     }
@@ -371,6 +371,7 @@ export class HomePage {
       this.post.delete( post.idx, re => {
           this.app.notice("Successful on Deleting this post...");
           post.idx = null;
+          this.router.navigateByUrl( 'reload', '/');
         },
         error => this.post.error("delete error: " + error )
       );

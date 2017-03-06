@@ -2,138 +2,149 @@
 <section class="content">
   <!--job-left *ngIf=" app.size == 'big' "></job-left-->
   <section class="center">
-          <form>
-            <div class="photo-container">
-              <div class="primary-photo" (click)="onClickFileUploadButton()">
+    <form>
+      <div class="photo-container">
+        <div class="primary-photo" (click)="onClickFileUploadButton()">
                     <span class="camera fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-camera fa-stack-1x fa-inverse"></i>
                     </span>
-                <img [src]="urlPhoto">
-                <input *ngIf=" ! cordova " type="file" name="inputFile" [(ngModel)]="inputFileValue" #file (change)="onChangeFile($event, file.value)">
-              </div><!--/primary-photo-->
+          <img [src]="urlPhoto">
+          <input *ngIf=" ! cordova " type="file" name="inputFile" [(ngModel)]="inputFileValue" #file (change)="onChangeFile($event, file.value)">
+        </div><!--/primary-photo-->
 
-              <button *ngIf=" form.photos[0] " class="delete" (click)="onClickDeleteFile()">
-                <i *ngIf=" ! inDeleting " class="fa fa-trash"></i>
-                <i *ngIf=" inDeleting " class="fa fa-spinner fa-spin"></i>
-                {{ ['DELETE PHOTO', '사진 삭제'] | ek }}
-              </button>
+        <button *ngIf=" form.photos[0] " class="delete" (click)="onClickDeleteFile()">
+          <i *ngIf=" ! inDeleting " class="fa fa-trash"></i>
+          <i *ngIf=" inDeleting " class="fa fa-spinner fa-spin"></i>
+          {{ ['DELETE PHOTO', '사진 삭제'] | ek }}
+        </button>
 
-              <!-- This supports IE 9. IE 9 does not support HTML 5 -->
-              <progress *ngIf=" showProgress " class="progress" value="{{ progress }}" max="100">
-                <div class="progress">
-                  <span class="progress-bar" [style.width]="widthProgress"></span>
-                </div>
-              </progress>
-            </div>
+        <!-- This supports IE 9. IE 9 does not support HTML 5 -->
+        <progress *ngIf=" showProgress " class="progress" value="{{ progress }}" max="100">
+          <div class="progress">
+            <span class="progress-bar" [style.width]="widthProgress"></span>
+          </div>
+        </progress>
+      </div>
 
-            <div class="row-container">
-              <label for="first_name" class="text">First Name</label>
-              <div class="input">
-                <input class="form-control" type="text" id="first_name" name="first_name" [(ngModel)]="form.text_1" placeholder="Input First Name...">
-              </div>
-            </div>
+      <div class="row-container">
+        <label for="first_name" class="text">First Name</label>
+        <div class="input">
+          <input class="form-control" type="text" id="first_name" name="first_name" [(ngModel)]="form.text_1" placeholder="Input First Name...">
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label for="middle_name" class="text">Middle Name</label>
-              <div class="input">
-                <input class="form-control" type="text" id="middle_name" name="middle_name" [(ngModel)]="form.text_2" placeholder="Input Middle Name...">
-              </div>
-            </div>
+      <div class="row-container">
+        <label for="middle_name" class="text">Middle Name</label>
+        <div class="input">
+          <input class="form-control" type="text" id="middle_name" name="middle_name" [(ngModel)]="form.text_2" placeholder="Input Middle Name...">
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label for="last_name" class="text">Last Name</label>
-              <div class="input">
-                <input class="form-control" type="text" id="last_name" name="last_name" [(ngModel)]="form.text_3" placeholder="Input Last Name...">
-              </div>
-            </div>
+      <div class="row-container">
+        <label for="last_name" class="text">Last Name</label>
+        <div class="input">
+          <input class="form-control" type="text" id="last_name" name="last_name" [(ngModel)]="form.text_3" placeholder="Input Last Name...">
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label for="mobile" class="text">Mobile #</label>
-              <div class="input">
-                <input class="form-control" type="number" id="mobile" name="mobile"  [(ngModel)]="form.varchar_4" placeholder="Input Mobile">
-              </div>
-            </div>
+      <div class="row-container">
+        <label for="mobile" class="text">Mobile #</label>
+        <div class="input">
+          <input class="form-control" type="text" id="mobile" name="mobile"  [(ngModel)]="form.varchar_4" placeholder="Input Mobile">
+          <div class="text-muted">{{ ['Input digits only', '숫자만 입력하세요.'] | ek }}</div>
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label for="address" class="text">Address</label>
-              <div class="input">
-                <input class="form-control" type="text" id="address" name="address" [(ngModel)]="form.varchar_1" placeholder="Input Address">
-              </div>
-            </div>
+      <div class="row-container">
+        <label for="address" class="text">Address</label>
+        <div class="input">
+          <input class="form-control" type="text" id="address" name="address" [(ngModel)]="form.varchar_1" placeholder="Input Address">
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label class="text">Province</label>
-              <div class="input">
-                <select class="form-control" id="province" name="province" [(ngModel)]="form.varchar_2" (change)="onClickProvince()">
-                  <option value="all">All</option>
-                  <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
-                </select>
-              </div>
-            </div>
+      <div class="row-container">
+        <label class="text">Province</label>
+        <div class="input">
+          <select class="form-control" id="province" name="province" [(ngModel)]="form.varchar_2" (change)="onClickProvince()">
+            <option value="all">All</option>
+            <option *ngFor="let province of provinces" [value]="province">{{province}}</option>
+          </select>
+        </div>
+      </div>
 
-            <div class="row-container" *ngIf="showCities">
-              <label class="text" *ngIf="showCities">City</label>
-              <div class="input">
-                <select class="form-control" id="city" name="city" [(ngModel)]="form.varchar_3">
-                  <option *ngFor="let key of cityKeys" [value]="key">{{cities[key]}}</option>
-                </select>
-              </div>
-            </div>
+      <div class="row-container" *ngIf="showCities">
+        <label class="text" *ngIf="showCities">City</label>
+        <div class="input">
+          <select class="form-control" id="city" name="city" [(ngModel)]="form.varchar_3">
+            <option *ngFor="let key of cityKeys" [value]="key">{{cities[key]}}</option>
+          </select>
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label for="birthday" class="text">Birthday</label>
-              <div class="input">
-                <input class="form-control" type="date" name="birthday" id="birthday" [(ngModel)]="form.varchar_5" >
-              </div>
-            </div>
+      <div class="row-container">
+        <label for="birthday" class="text">Birthday</label>
+        <div class="input">
+          <input class="form-control" type="date" name="birthday" id="birthday" [(ngModel)]="form.varchar_5" >
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label class="text">Gender</label>
-              <div class="input">
-                <label class="form-check-inline">
-                  <input class="form-check-input" type="radio" name="genderRadio" id="male" value="M" [(ngModel)]="form.char_1" > Male
-                </label>
-                <label class="form-check-inline">
-                  <input class="form-check-input" type="radio" name="genderRadio" id="female" value="F" [(ngModel)]="form.char_1"> Female
-                </label>
-              </div>
-            </div>
+      <div class="row-container">
+        <label class="text">Gender</label>
+        <div class="input">
+          <label class="form-check-inline">
+            <input class="form-check-input" type="radio" name="genderRadio" id="male" value="M" [(ngModel)]="form.char_1" > Male
+          </label>
+          <label class="form-check-inline">
+            <input class="form-check-input" type="radio" name="genderRadio" id="female" value="F" [(ngModel)]="form.char_1"> Female
+          </label>
+        </div>
+      </div>
 
-            <div class="row-container">
-              <label class="text" for="workExperience">Work Experience</label>
-              <div class="input">
-                <select class="form-control" id="workExperience" name="workExperience" [(ngModel)]="form.int_1">
-                  <option value="0">No work Experience</option>
-                  <option *ngFor="let number of numbers" [value]="number">{{number}} years</option>
-                </select>
-              </div>
-            </div>
-
-
-            <div class="row-container">
-              <label class="text"  for="workProfession">Work Profession</label>
-              <div class="input">
-                <select class="form-control" id="workProfession" name="workProfession" [(ngModel)]="form.sub_category">
-                  <option value="Housemaid">House Maid</option>
-                  <option value="Driver">Driver</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="personalContent">Personal Message</label>
-              <textarea class="form-control" name="personalContent" id="personalContent" rows="3" [(ngModel)]="form.varchar_6"></textarea>
-            </div>
+      <div class="row-container">
+        <label class="text" for="workExperience">Work Experience</label>
+        <div class="input">
+          <select class="form-control" id="workExperience" name="workExperience" [(ngModel)]="form.int_1">
+            <option value="0">No work Experience</option>
+            <option *ngFor="let number of numbers" [value]="number">{{number}} years</option>
+          </select>
+        </div>
+      </div>
 
 
-            <div warning *ngIf="errorOnPost">{{errorOnPost}}</div>
-            <div *ngIf="loader"><i class="fa fa-spinner fa-pulse fa-fw"></i>Connecting to server...</div>
+      <div class="row-container">
+        <label class="text"  for="workProfession">Work Profession</label>
+        <div class="input">
+          <select class="form-control" id="workProfession" name="workProfession" [(ngModel)]="form.sub_category">
+            <option value="">Select Profession</option>
+            <option value="Housemaid">House Maid</option>
+            <option value="Driver">Driver</option>
+            <option value="Babysitter">Babysitter</option>
+          </select>
+        </div>
+      </div>
 
-            <button type="button" class="btn btn-primary btn-block" (click)="onClickSubmit()">Submit</button>
+      <div class="row-container">
+        <label for="inputPassword" class="text">Password</label>
+        <div class="input">
+          <input class="form-control" type="password" id="inputPassword" name="password" [(ngModel)]="regForm.password" placeholder="Input Password...">
+        </div>
+      </div>
 
 
-          </form>
+      <div class="form-group">
+        <label for="personalContent">Personal Message</label>
+        <textarea class="form-control" name="personalContent" id="personalContent" rows="3" [(ngModel)]="form.varchar_6"></textarea>
+      </div>
+
+
+      <div warning *ngIf="errorOnPost">{{errorOnPost}}</div>
+      <div *ngIf="loader"><i class="fa fa-spinner fa-pulse fa-fw"></i>Connecting to server...</div>
+
+      <button type="button" class="btn btn-primary btn-block" (click)="onClickSubmit()">Submit</button>
+
+
+    </form>
 
 
   </section><!--/.center-->

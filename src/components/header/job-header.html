@@ -16,30 +16,6 @@
                 </span>
         <div class="text">{{ ['Post', '구직 등록'] | ek }}</div>
       </li>
-      <li class="register" *ngIf=" ! login " (click)="onClickRoute('/user/register')">
-                <span class="icon fa-stack fa-lg">
-                    <i class="background fa fa-circle fa-stack-2x"></i>
-                    <i class="font fa fa-user-plus fa-stack-1x fa-inverse"></i>
-                </span>
-        <div class="text">{{ ['Signup', '회원가입'] | ek }}</div>
-      </li>
-      <li class="login" *ngIf=" ! login " (click)="onClickRoute('/user/login')">
-                <span class="icon fa-stack fa-lg">
-                    <i class="background fa fa-circle fa-stack-2x"></i>
-                    <i class="font fa fa-user fa-stack-1x fa-inverse"></i>
-                </span>
-        <div>{{ ['Login', '로그인'] | ek }}</div>
-      </li>
-
-
-      <li class="register" *ngIf=" login " (click)="onClickLogout()">
-                <span class="icon fa-stack fa-lg">
-                    <i class="background fa fa-circle fa-stack-2x"></i>
-                    <i class="font fa fa-sign-out fa-stack-1x fa-inverse"></i>
-                </span>
-        <div class="text">{{ ['Logout', '로그아웃'] | ek }}</div>
-      </li>
-
     </ul>
   </nav>
 </header>

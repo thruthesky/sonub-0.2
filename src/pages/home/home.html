@@ -98,11 +98,11 @@
             <p class="card-text"  *ngIf="post.active">{{ ek('City','지역') }} : {{post?.varchar_3}}</p>
             <p class="share link" *ngIf="post.active && !cordova">
               <span class="text">{{ ek('Share', '링크') }} : </span>
-              <label class="shareLink text">{{post?.link}}</label>
+              <label class="shareLink text" [routerLink]="'view/'+post.idx">{{post?.link}}</label>
             </p>
           </div>
-          <div class="card-footer" *ngIf=" post.active && post?.member?.id == login?.id " >
-            <div class="nav-click" (click)="onClickDelete( $event, post )"><i class="fa fa-trash-o"></i> Delete</div>
+          <div class="card-footer" *ngIf=" post.active " >
+            <!--div class="nav-click" (click)="onClickDelete( $event, post )"><i class="fa fa-trash-o"></i> Delete</div-->
             <div class="nav-click" (click)="onClickEdit( post.idx )"><i class="fa fa-pencil"></i> Edit</div>
           </div>
         </div>

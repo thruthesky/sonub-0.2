@@ -6,6 +6,7 @@ import { Data, FILE_UPLOAD_RESPONSE, FILE_UPLOAD_DATA, DATA_UPLOAD_OPTIONS } fro
 import { Router, ActivatedRoute } from '@angular/router';
 import { App } from '../../providers/app';
 import * as _ from 'lodash';
+import { MEMBER_REGISTER_DATA } from "../../api/philgo-api/v2/philgo-api-interface";
 
 declare var Array;
 declare var navigator;
@@ -17,6 +18,7 @@ declare var Camera;
   templateUrl: 'job-post.html'
 })
 export class JobPostPage{
+
 
   form : POST_DATA = <POST_DATA> {
     gid: '',
@@ -40,6 +42,11 @@ export class JobPostPage{
     int_4: '', //day
     photos: []
   };
+
+
+  regForm = < MEMBER_REGISTER_DATA > {};
+
+  ln: string = null;
   loader: boolean = false;
   errorOnPost = null;
   numbers = Array.from(new Array(20), (x,i) => i+1);
@@ -78,7 +85,7 @@ export class JobPostPage{
     }, e => {
       console.log('error location.get_province::', e);
     });
-
+    this.ln = post.languageCode;
     this.login = member.getLoginData();
     this.form.gid = data.uniqid(); // for file upload of new post
     let idx = this.route.snapshot.params['idx'];
@@ -103,13 +110,6 @@ export class JobPostPage{
 
   get cityKeys() {
     return Object.keys( this.cities );
-  }
-
-  ngOnInit() {
-  }
-
-  show(){
-    console.log('this.form', this.form);
   }
 
   onClickProvince() {
@@ -138,28 +138,20 @@ export class JobPostPage{
 
   onClickSubmit(){
     console.log("onClickSubmit:: ", this.form);
-    if( ! this.login ) {
-      this.app.notice('Please Login first...')
-      this.router.navigateByUrl( '/user/login' )
-      return;
-    }
-
 
     if( ! this.form.text_1 ) return this.app.notice('Please Input Name...');
     if( ! this.form.text_2 ) return this.app.notice('Please Input Middle Name...');
     if( ! this.form.text_3 ) return this.app.notice('Please Input Last Name...');
-
-
     if( ! this.form.varchar_4 ) return this.app.notice('Please Input Mobile...');
     if( ! this.form.varchar_1 ) return this.app.notice('Please Input Address');
     if( this.form.varchar_2 == 'all' ) return this.app.notice('Please Select Province...');
-    //if( this.form.varchar_3 ) return this.app.notice('Please Input Mobile...');
     if( ! this.form.sub_category ) return this.app.notice('Please Select Work Profession...');
     if( ! this.form.varchar_6 ) return this.app.notice('Please Input Personal Message...');
-
+    if( ! this.regForm.password ) return this.app.notice('Please Input Password');
 
     this.loader = true;
     this.errorOnPost = null;
+
     if(this.form['varchar_5']) {
       let str = this.form['varchar_5'].split('-');
 
@@ -171,38 +163,80 @@ export class JobPostPage{
       this.form['int_2'] = str[0]; //year
       this.form['int_3'] = str[1]; //month
       this.form['int_4'] = str[2]; //day
-
-      this.form.subject = this.form.sub_category + '-'  //profession
-        + ( this.form.char_1 == 'M' ? 'Male' : 'Female' ) + '-'   //gender
-        + this.form.varchar_2 + '-'   //province
-        + ( this.currentYear - parseInt( this.form.int_2 ) ) + 'yrs old'
-        + this.form.varchar_3;  //mobile number
-      this.form.content = this.form.subject;
     }
+    this.form.subject = this.form.sub_category + '-'  //profession
+      + ( this.form.char_1 == 'M' ? 'Male' : 'Female' ) + '-'   //gender
+      + this.form.varchar_2 + '-'   //province
+      + ( this.currentYear - parseInt( this.form.int_2 ) ) + 'yrs old-'
+      + this.form.varchar_4;  //mobile number
+    this.form.content = this.form.subject;
+
+
+    this.regForm.id = 'job' + this.form.text_1 + this.form.varchar_4;
+    this.regForm.name = this.regForm.id;
+    this.regForm.nickname = this.form.text_1;
+    this.regForm.email = this.form.text_1 + this.form.varchar_4 + '@job.sonub.com';
+    this.regForm.mobile = this.form.varchar_4;
+
+
     if(this.form.idx) {
-      this.updatePost();
+      this.regForm.idx = this.form.idx;
+      this.postLogin();
     }
     else {
-      this.createPost();
+      this.register();
     }
   }
 
+  register() {
+    console.log("register:: ", this.regForm);
+    this.member.register( this.regForm, (login) => {
+        console.log('onClickRegister(), registration success: ', login )
+        this.createPost();
+      },
+      e => {
+        this.app.notice(e);
+        this.loader = false;
+        //console.log("onClickRegister() error: " + e);
+      });
+  }
+
+
+  postLogin() {
+    this.member.login( this.regForm,
+      login => {
+        this.updatePost();
+      },
+      er => {
+        this.loader = false;
+        this.openConfirmation('Incorrect Password');
+      },
+      () => {
+        // console.log('philgo login complete!');
+      }
+    );
+
+  }
+
+
+  openConfirmation(msg) {
+    this.app.notice(msg);
+  }
+
+
   createPost() {
-    console.log('createPost:: ', this.form);
-    this.post.debug =true;
+    //console.log('createPost:: ', this.form);
+    //this.post.debug =true;
     this.post.create( this.form, data => {
         console.log("post create success: ", data);
-        this.openConfirmation('Success::Your post has been Posted.');
         this.loader = false;
-        this.clearInputs();
+        this.logout();
+        this.openConfirmation('Success::Your post has been Posted.');
+        this.router.navigateByUrl('/');
       },
       error => this.post.error( error ),
       () => {}
     )
-  }
-
-  openConfirmation(msg) {
-    this.app.notice(msg);
   }
 
   updatePost() {
@@ -210,6 +244,7 @@ export class JobPostPage{
     this.post.update( this.form, data => {
       console.log("post update : ", data);
       this.loader = false;
+      this.logout();
       this.openConfirmation('Success::Your post has been Updated.');
       this.router.navigate( [ '/view/'+ data.idx ] );
     }, er => this.post.error( er ));
@@ -246,11 +281,25 @@ export class JobPostPage{
   onClickFileUploadButton() {
     if ( ! this.cordova ) return;
     // console.log("onClickFileUploadButton()");
+
+    let message = 'Please select how you want to take photo.';
+    let camera = 'Camera';
+    let gallery = 'Gallery';
+    let cancel = 'Cancel';
+    let title = 'Take Photo';
+    if ( this.ln == 'ko' ) {
+      message = '카메라에서 사진 찍기 또는 갤러리에서 가져오기를 선택하세요.';
+      camera = '카메라';
+      gallery = '갤러리';
+      cancel = '취소';
+      title = '사진 선택';
+    }
+
     navigator.notification.confirm(
-      'Please select how you want to take photo.', // message
+      message,
       i => this.onCameraConfirm( i ),
-      'Take Photo',           // title
-      ['Camera','Cancel', 'Gallery']     // buttonLabels
+      title,           // title
+      [camera, cancel, gallery]     // buttonLabels
     );
   }
 
@@ -363,5 +412,12 @@ export class JobPostPage{
       console.log('ngZone.run()');
     });
   }
+
+
+  logout() {
+    this.login = null;
+    this.member.logout();
+  }
+
 
 }

@@ -1,8 +1,9 @@
 job-view {
   display: block;
   @include color-combination( 'setting' );
-  
-  .content{
+
+  .content .center {
+    padding-top: 1em;
   }
   .primary-photo {
     position: relative;
@@ -23,7 +24,7 @@ job-view {
       color: #49494f;
     }
   }
-  
+
 
   .content .text {
     padding: .6em .8em;

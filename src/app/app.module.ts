@@ -24,8 +24,6 @@ import { JobHeader } from "../components/header/job-header";
 import { JobPostPage } from "../pages/job-post/job-post";
 import { JobViewPage } from "../pages/job-view/job-view";
 import { FileNotFoundPage } from "../pages/file-not-found/file-not-found";
-import { RegisterPage } from "../pages/user/register/register";
-import { LoginPage } from "../pages/user/login/login";
 import { ReloadPage } from "../pages/reload/reload";
 import { PostCard } from "../components/post-card/post-card";
 
@@ -38,9 +36,6 @@ const appRoutes: Routes = [
   { path: "view/:idx", component: JobViewPage },
   { path: 'help', component: HelpPage },
   { path: '', component: HomePage },
-
-  { path: 'user/register', component: RegisterPage },
-  { path: 'user/login', component: LoginPage },
 
   { path: "reload/:url", component: ReloadPage },
   { path: "reload", component: ReloadPage },
@@ -58,8 +53,6 @@ const appRoutes: Routes = [
     JobViewPage,
     JobHeader,
     PostCard,
-    RegisterPage,
-    LoginPage,
     ReloadPage,
     FileNotFoundPage,
     NoticeModalContent
