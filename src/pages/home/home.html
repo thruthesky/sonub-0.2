@@ -86,7 +86,7 @@
     <div class="card-deck" >
       <ng-container *ngFor=" let post of page ">
         <div class="card" *ngIf="post?.deleted == '0' " [class.dummy]=" post?.content == 'dummy' " (click)=" post.active = ! post?.active">
-          <img class="card-img-top" src="{{post?.photos?.length ? post.photos[0]['url_thumbnail'] : urlPhoto}}" alt="{{post.text_1}}">
+          <img class="card-img-top" src="{{post?.photos?.length ? post.photos[0]['url_thumbnail'] : urlPhoto}}" #photoImg  (error)="photoImg.src = post.photos[0]['url'] ">
           <div class="card-block">
             <!--h4 class="card-title">Card title</h4-->
             <p class="card-text">{{post?.text_1}} {{post?.text_2}} {{post?.text_3}}</p>
@@ -103,7 +103,7 @@
           </div>
           <div class="card-footer" *ngIf=" post.active " >
             <!--div class="nav-click" (click)="onClickDelete( $event, post )"><i class="fa fa-trash-o"></i> Delete</div-->
-            <div class="nav-click" (click)="onClickEdit( post.idx )"><i class="fa fa-pencil"></i> Edit</div>
+            <div class="nav-click" (click)="onClickEdit( $event, post )"><i class="fa fa-pencil"></i> Edit</div>
           </div>
         </div>
       </ng-container>

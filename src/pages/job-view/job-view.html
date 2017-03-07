@@ -7,7 +7,7 @@
 
       <div class="row">
         <div class="primary-photo">
-          <img [src]="urlPhoto">
+          <img [src]="urlPhoto"  #photoImg (error)="photoImg.src = form.photos[0]['url'] ">
         </div><!--/primary-photo-->
       </div>
 
@@ -44,7 +44,7 @@
       <div class="row">
         <label class="col-12">{{ ek('Gender','성별') }}</label>
         <div class="col-12">
-          <div class="text">{{form.char_1 == 'm' ? 'Male' : 'Female'}}</div>
+          <div class="text">{{form.char_1 == 'M' ? 'Male' : 'Female'}}</div>
         </div>
       </div>
 

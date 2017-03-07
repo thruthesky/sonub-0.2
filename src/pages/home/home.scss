@@ -63,27 +63,6 @@ home-page .content {
 
 
 
-.action-group {
-  position: absolute;
-  top: $gutter-middle * 2;
-  right: 0;
-  width: 30%;
-
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  list-style: none;
-
-  color: #777;
-
-  .fa-stack {
-    font-size: .8rem;
-    color: #999;
-  }
-
-}
-
-
 
 home-page .no-more-posts {
   display: none;

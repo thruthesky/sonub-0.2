@@ -10,80 +10,110 @@ job-post {
       width: 100%;
     }
   }
-  .content form {
-    margin-bottom: 4em;
-    .photo-container {
-      margin: 1em;
-      .primary-photo {
-        position: relative;
-        margin: 0 auto;
-        width: 14em;
-        max-height: 14em;
+  .content {
+    .center {
+      padding: 1em 0;
+    }
 
-        overflow: hidden;
-        img {
-          width: 100%;
-        }
-
-        .camera {
-          position: absolute;
-          z-index: 80;
-          left: .6em;
-          bottom: .6em;
-        }
-        input {
-          position: absolute;
-          z-index: 100;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          font-size: 30em;
-          opacity: .001;
-        }
-        input[type="file"]{
-          cursor:pointer
-        }
+    form {
+      margin-bottom: 4em;
+      button, select, input[type="date"] {
+        cursor: pointer;
       }
-    }
-
-    button.delete {
-      display: block;
-      margin: 1em auto;
-      padding: .6em .8em;
-      border: 0;
-      width: 14em;
-      background-color: #779999;
-      color: white;
-    }
-
-    progress.progress {
-      margin: 1em auto;
-    }
-
-    .row-container {
-      margin-bottom: .8em;
-      .text {
-        float: left;
-        width: 8em;
+      .action-group {
+        overflow: auto;
+        top: .5em;
+        right: 0;
         margin: 0;
-        padding: 0.4em 0;
-      }
-      .input {
-        margin-left: 8em;
-      }
-      .form-check-inline{
-        padding: 0.4em 0;
-        margin-bottom: 0;
-      }
-      .form-check-input {
-        padding: 0.4em 0;
-        margin-left: 0;
-      }
-      &.buttons {
+        padding: 0;
         text-align: center;
-        button {
-          width: 40%;
-          margin: 0 .5em;
+        list-style: none;
+        color: #777;
+        .delete-btn {
+          float: right;
+          padding: .3em;
+          font-size: 1.2rem;
+          cursor: pointer;
+        }
+      }
+      .photo-container {
+        position: relative;
+        margin: 1em;
+        .primary-photo {
+          position: relative;
+          margin: 0 auto;
+          width: 14em;
+          max-height: 14em;
+
+          overflow: hidden;
+          img {
+            width: 100%;
+          }
+
+          .camera {
+            position: absolute;
+            z-index: 80;
+            left: .6em;
+            bottom: .6em;
+          }
+          input {
+            position: absolute;
+            z-index: 100;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            font-size: 30em;
+            opacity: .001;
+          }
+          input[type="file"] {
+            cursor:pointer
+          }
+        }
+        .delete {
+          cursor: pointer;
+        }
+
+      }
+
+      button.delete {
+        display: block;
+        margin: 1em auto;
+        padding: .6em .8em;
+        border: 0;
+        width: 14em;
+        background-color: #779999;
+        color: white;
+      }
+
+      progress.progress {
+        margin: 1em auto;
+      }
+
+      .row-container {
+        margin-bottom: .8em;
+        .text {
+          float: left;
+          width: 8em;
+          margin: 0;
+          padding: 0.4em 0;
+        }
+        .input {
+          margin-left: 8em;
+        }
+        .form-check-inline{
+          padding: 0.4em 0;
+          margin-bottom: 0;
+        }
+        .form-check-input {
+          padding: 0.4em 0;
+          margin-left: 0;
+        }
+        &.buttons {
+          text-align: center;
+          button {
+            width: 40%;
+            margin: 0 .5em;
+          }
         }
       }
     }

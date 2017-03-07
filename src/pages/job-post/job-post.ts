@@ -54,11 +54,13 @@ export class JobPostPage{
   cities = [];
   showCities: boolean = false;
   login: MEMBER_LOGIN = null;
-  gid: string = null;
 
   urlDefault: string = "assets/img/anonymous.gif";
   urlPhoto: string = this.urlDefault;
   files: Array<FILE_UPLOAD_DATA> = <Array<FILE_UPLOAD_DATA>>[];
+
+  inDeleting: boolean = false;
+
   showProgress: boolean = false;
   progress: number = 0;
   widthProgress: any;
@@ -91,7 +93,12 @@ export class JobPostPage{
     let idx = this.route.snapshot.params['idx'];
     if( idx ){ //if idx exist then edit
       //this.post.debug = true;
-      this.post.load(idx, re=> {
+      if ( ! this.login ) {
+        this.app.notice('Not Authorize Access...');
+        this.router.navigateByUrl('/');
+        return;
+      }
+      this.post.load(idx, re => {
         console.log('re data',re.post);
         if(re.post) {
           this.form = re.post;
@@ -147,7 +154,7 @@ export class JobPostPage{
     if( this.form.varchar_2 == 'all' ) return this.app.notice('Please Select Province...');
     if( ! this.form.sub_category ) return this.app.notice('Please Select Work Profession...');
     if( ! this.form.varchar_6 ) return this.app.notice('Please Input Personal Message...');
-    if( ! this.regForm.password ) return this.app.notice('Please Input Password');
+    if( ! this.regForm.password && ! this.login ) return this.app.notice('Please Input Password');
 
     this.loader = true;
     this.errorOnPost = null;
@@ -173,15 +180,14 @@ export class JobPostPage{
 
 
     this.regForm.id = 'job' + this.form.text_1 + this.form.varchar_4;
-    this.regForm.name = this.regForm.id;
-    this.regForm.nickname = this.form.text_1;
+    this.regForm.name = this.form.text_1;
+    this.regForm.nickname = this.regForm.id;
     this.regForm.email = this.form.text_1 + this.form.varchar_4 + '@job.sonub.com';
     this.regForm.mobile = this.form.varchar_4;
 
 
-    if(this.form.idx) {
-      this.regForm.idx = this.form.idx;
-      this.postLogin();
+    if( this.form.idx ) {
+      this.updatePost();
     }
     else {
       this.register();
@@ -192,7 +198,16 @@ export class JobPostPage{
     console.log("register:: ", this.regForm);
     this.member.register( this.regForm, (login) => {
         console.log('onClickRegister(), registration success: ', login )
-        this.createPost();
+        //this.createPost();
+
+        if ( this.photoUploaded() ) {
+          this.data.updateMemberIdx( this.form.gid, re => {
+            console.log("file 'idx_member' update success: ", re );
+            this.createPost();
+          }, error => this.member.error( 'file idx_member update error: ' + error ) );
+        }
+        else this.createPost();
+
       },
       e => {
         this.app.notice(e);
@@ -200,24 +215,6 @@ export class JobPostPage{
         //console.log("onClickRegister() error: " + e);
       });
   }
-
-
-  postLogin() {
-    this.member.login( this.regForm,
-      login => {
-        this.updatePost();
-      },
-      er => {
-        this.loader = false;
-        this.openConfirmation('Incorrect Password');
-      },
-      () => {
-        // console.log('philgo login complete!');
-      }
-    );
-
-  }
-
 
   openConfirmation(msg) {
     this.app.notice(msg);
@@ -240,7 +237,7 @@ export class JobPostPage{
   }
 
   updatePost() {
-    console.log('UpdatePost::');
+    console.log('UpdatePost::', this.form);
     this.post.update( this.form, data => {
       console.log("post update : ", data);
       this.loader = false;
@@ -346,37 +343,60 @@ export class JobPostPage{
 
   onChangeFile( event ) {
     this.showProgress = true;
-    this.data.uploadPostFile( this.form.gid, event,
+    /**
+      this.data.uploadPostFile( this.form.gid, event,
       s => this.onSuccessFileUpload(s),
       f => this.onFailureFileUpload(f),
       c => this.onCompleteFileUpload(c),
       p => this.onProgressFileUpload(p)
     );
+    **/
+    this.showProgress = true;
+    // if not logged in, then delete previous primary photo. If logged in, automatically deleted.
+    if ( this.login == null ) this.deletePrimaryPhoto( true ); // delete only when user did not logged in. when a user logged in, the primary photo will be automatically deleted.
+    if ( this.login ) {
+      this.data.uploadPostFile( this.form.gid, event,
+        s => this.onSuccessFileUpload(s),
+        f => this.onFailureFileUpload(f),
+        c => this.onCompleteFileUpload(c),
+        p => this.onProgressFileUpload(p)
+      );
+    }
+    else {
+      this.data.uploadPostFileAnonymous( this.form.gid, event,
+        s => this.onSuccessFileUpload(s),
+        f => this.onFailureFileUpload(f),
+        c => this.onCompleteFileUpload(c),
+        p => this.onProgressFileUpload(p)
+      );
+    }
   }
 
   onSuccessFileUpload (re: FILE_UPLOAD_RESPONSE) {
     console.log('re.data: ', re.data);
-    this.deleteFile( this.form.photos[0] );
+    //this.deleteFile( this.form.photos[0] );
     //this.form.photos =  re.data;
 
     // Edited by Mr. Song. this.form.photos is an Array but re.data is an Object.
     this.form.photos.push( re.data );
+    console.log('this.form::', this.form);
     this.urlPhoto = re.data.url_thumbnail;
     this.showProgress = false;
     this.renderPage();
   }
 
-  onFailureFileUpload ( error ) {
+  onFailureFileUpload ( f ) {
     this.showProgress = false;
-    this.post.error( error );
+    this.post.error( f );
   }
 
-  onCompleteFileUpload( completeCode ) {
-    console.log("completeCode: ", completeCode);
+  onCompleteFileUpload( c ) {
+    this.showProgress = false;
+    console.log("completeCode: ", c);
   }
-  onProgressFileUpload( percentage ) {
-    console.log("percentag uploaded: ", percentage);
-    this.progress = percentage;
+  onProgressFileUpload( p ) {
+    console.log("percentag uploaded: ", p);
+    this.progress = p;
     this.renderPage();
   }
 
@@ -384,11 +404,11 @@ export class JobPostPage{
     let re = confirm("Do you want to delete?");
     if ( re == false ) return;
 
-    this.deleteFile( this.form.photos[0] );
+    this.deletePrimaryPhoto();
 
   }
-
-  deleteFile( file? ){
+/**
+  deleteFile(){
     if( ! file ) return;
     console.log("onClickDeleteFile: ", file);
     let data = {
@@ -405,7 +425,52 @@ export class JobPostPage{
     }, error => {
       this.post.error( error );
     } );
+
+   this.deletePrimaryPhoto();
   }
+**/
+
+  deletePrimaryPhoto( silent?: boolean ) {
+    try {
+      let idx = this.photoUploaded();
+      if ( idx ) {
+        let data = {
+          idx: idx,
+          gid: this.form.gid
+        };
+
+        this.inDeleting = true;
+        this.data.delete( data, (re) => {
+          this.inDeleting = false;
+          console.log("file deleted: idx: ", re.data.idx);
+          _.remove( this.form.photos , x => {
+            console.log('x:', x);
+            return x.idx == data.idx;
+          } );
+
+          if ( silent === void 0 || silent !== true ) {
+            this.progress = 0;
+            this.urlPhoto = this.urlDefault;
+            this.inputFileValue = '';
+          }
+        }, error => {
+          this.inDeleting = false;
+          //this.post.error( error );
+        } );
+      }
+    }
+    catch ( e ) {
+      console.error("failed on deleting file: ", e);
+    }
+  }
+
+  photoUploaded() : number {
+    if ( this.form.photos[0] && this.form.photos[0].idx ) return this.form.photos[0].idx;
+   //if ( this.memberData && this.memberData.user_url_primary_photo ) return this.data.getIdxFromUrl( this.memberData.user_url_primary_photo );
+    return 0;
+  }
+
+
 
   renderPage() {
     this.ngZone.run(() => {
@@ -420,4 +485,18 @@ export class JobPostPage{
   }
 
 
+  onClickDelete() {
+    let re = confirm("Are you sure you want to delete this post?");
+    if ( re ) {
+      this.post.delete( this.form.idx, re => {
+          this.app.notice("Successful on Deleting this post...");
+          this.router.navigateByUrl('/');
+        },
+        error => this.post.error("delete error: " + error )
+      );
+    }
+    else {
+      //console.log('delete Was Canceled');
+    }
+  }
 }

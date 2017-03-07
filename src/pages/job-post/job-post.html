@@ -3,17 +3,23 @@
   <!--job-left *ngIf=" app.size == 'big' "></job-left-->
   <section class="center">
     <form>
+      <ul class="action-group">
+        <li class="delete-btn" *ngIf=" login " (click)="onClickDelete()">
+          <i class="fa fa-trash-o"></i>
+          <span>Remove Post</span>
+        </li>
+      </ul>
       <div class="photo-container">
         <div class="primary-photo" (click)="onClickFileUploadButton()">
                     <span class="camera fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
                       <i class="fa fa-camera fa-stack-1x fa-inverse"></i>
                     </span>
-          <img [src]="urlPhoto">
+          <img [src]="urlPhoto"  #photoImg (error)="photoImg.src = form.photos[0]['url'] ">
           <input *ngIf=" ! cordova " type="file" name="inputFile" [(ngModel)]="inputFileValue" #file (change)="onChangeFile($event, file.value)">
         </div><!--/primary-photo-->
 
-        <button *ngIf=" form.photos[0] " class="delete" (click)="onClickDeleteFile()">
+        <button *ngIf=" form?.photos[0]?.idx " class="delete" (click)="onClickDeleteFile()">
           <i *ngIf=" ! inDeleting " class="fa fa-trash"></i>
           <i *ngIf=" inDeleting " class="fa fa-spinner fa-spin"></i>
           {{ ['DELETE PHOTO', '사진 삭제'] | ek }}
@@ -25,6 +31,7 @@
             <span class="progress-bar" [style.width]="widthProgress"></span>
           </div>
         </progress>
+
       </div>
 
       <div class="row-container">
@@ -124,7 +131,7 @@
         </div>
       </div>
 
-      <div class="row-container">
+      <div class="row-container" *ngIf=" ! login?.id ">
         <label for="inputPassword" class="text">Password</label>
         <div class="input">
           <input class="form-control" type="password" id="inputPassword" name="password" [(ngModel)]="regForm.password" placeholder="Input Password...">
