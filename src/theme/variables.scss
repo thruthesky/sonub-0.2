@@ -16,12 +16,13 @@ $gutter: 16px;
 }
 /** Bootstrap break points;
  *
- */
+
 $break-sm: 576px;
 $break-md: 768px;
 $break-lg: 992px;
 $break-xl: 1200px;
 
+*/
 
 /** Layout
  *
@@ -42,12 +43,6 @@ section.content {
  *
  *
  */
- header {
-     nav {
-         background-color: #eceeef;
-     }
- }
-
  .card-columns {
      column-gap: .8em!important;
  }
@@ -77,8 +72,7 @@ section.content {
 /** */
 header {
     nav {
-        background-color: #7186a0;
-        padding: 0 .5em;
+        padding: 0 1em;
     }
     .post {
         position: absolute;

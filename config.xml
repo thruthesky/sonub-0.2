@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.sonub.job" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>Helper City</name>
-  <description>Are you looking for house helpers, drivers or babysitter? Or you are one of them.</description>
+  <description>Are you looking for house helpers, drivers or babysitter? Or you are one of them. Come and Join Us now. Hire and be Hired...</description>
   <author email="pinedaclp@gmail.com" href="http://job.sonub.com/">Sonub</author>
   <content src="index.html"/>
   <access origin="*"/>

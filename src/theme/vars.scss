@@ -106,8 +106,6 @@ $box-title-color: (
 
 
 
-
-
 @mixin no-gutter() {
     margin-left: 0;
     margin-right: 0;
@@ -142,23 +140,6 @@ $box-title-color: (
         }
     }
 }
-.box {
-    display: block;
-    margin-bottom: $gutter;
-    background-color: white;
-    box-sizing: border-box;
-    .title {
-        padding: $gutter;
-        border-bottom: 0;
-        font-size: .9em;
-    }
-    .content {
-        box-sizing: border-box;
-    }
-}
-
-
-
 
 .clearfix {
     clear: both;

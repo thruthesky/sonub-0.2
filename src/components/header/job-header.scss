@@ -24,6 +24,10 @@ job-header {
 
     nav.menus {
         position: relative;
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 960px + $gutter;
         text-align: center;
         ul.menu {
             list-style: none;
