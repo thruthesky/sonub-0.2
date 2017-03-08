@@ -208,7 +208,7 @@ export class HomePage {
     data.post = 1;
     //this.post.debug = true;
     this.post.search( data, re => {
-      console.log("search result: ", re);
+      //console.log("search result: ", re);
       this.displayPosts( re );
     }, error => this.app.error("error on search: " + error ) );
   }
@@ -272,7 +272,7 @@ export class HomePage {
   }
 
   showPages(){
-    console.log('showPages::this.pages', this.pages);
+    //console.log('showPages::this.pages', this.pages);
   }
 
   /*
@@ -318,7 +318,7 @@ export class HomePage {
   }
 
   onChange() {
-    console.log('onChange::')
+    //console.log('onChange::')
     this.searchAll = false;
     this.search(true);
   }
@@ -352,7 +352,7 @@ export class HomePage {
 
 
   onClickRoute( url ) {
-    console.log('#########activeroute', url);
+    //console.log('#########activeroute', url);
 
 
     let active = this.router.isActive( url, true);
@@ -383,7 +383,7 @@ export class HomePage {
         this.app.notice('Incorrect Password');
       },
       () => {
-        // console.log('philgo login complete!');
+        //console.log('philgo login complete!');
       }
     )
   }

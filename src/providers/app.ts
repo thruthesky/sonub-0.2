@@ -17,7 +17,7 @@ export class App {
         private ln: LanguagePipe,
         private post: Post,
         private ngZone: NgZone ) {
-        // console.log("App::constructor()");
+        //console.log("App::constructor()");
     }
 
 
@@ -27,7 +27,7 @@ export class App {
     setWidth( width ) {
         this._width = width;
         this.renderPage();
-        // console.log("setWidth(): ", this._width);
+        //console.log("setWidth(): ", this._width);
     }
     get width() {
         return this._width;
@@ -68,13 +68,13 @@ export class App {
         option.content = this.t( option.content );
         //alert(option.content);
         this.alertService.open( option, () => {
-            console.info("alert OK");
+            //console.info("alert OK");
         });
     }
 
     private showMobileUploadModal( option, resultCallback?: (result) => void, dismissCallback?: (reason) => void ) {
       this.alertService.openMobileUpload( option, result => {
-        console.info("openMobileUpload:: " + result );
+        //console.info("openMobileUpload:: " + result );
         if( resultCallback ) resultCallback( result );
       }, reason => {
         if( dismissCallback ) dismissCallback( reason );
@@ -108,7 +108,7 @@ export class App {
       }, reason => {
         if ( dismissCallback ) dismissCallback( reason );
       });
-    } 
+    }
 
     memberInfoView( post ) {
       let option: MEMBER_OPTION = {
@@ -146,7 +146,7 @@ export class App {
             class: 'error',
             timeout: timeout
         };
-        console.log(option);
+        //console.log(option);
         this.toast( option );
     }
 
@@ -162,7 +162,7 @@ export class App {
             class: 'notice',
             timeout: timeout
         };
-        console.log(option);
+        //console.log(option);
         this.toast( option );
     }
 
@@ -204,6 +204,6 @@ export class App {
 
         },
         () => {} );
-        
+
     }
 }

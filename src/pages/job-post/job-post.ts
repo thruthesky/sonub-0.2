@@ -85,7 +85,7 @@ export class JobPostPage{
     region.get_province( re => {
       this.provinces = re;
     }, e => {
-      console.log('error location.get_province::', e);
+      //console.log('error location.get_province::', e);
     });
     this.ln = post.languageCode;
     this.login = member.getLoginData();
@@ -99,7 +99,7 @@ export class JobPostPage{
         return;
       }
       this.post.load(idx, re => {
-        console.log('re data',re.post);
+        //console.log('re data',re.post);
         if(re.post) {
           this.form = re.post;
           re.post.photos.map( e => this.files.push(e) );
@@ -110,7 +110,7 @@ export class JobPostPage{
         }
       }, e => {
         this.app.error( e );
-        console.log('error on getting idx', e);
+        //console.log('error on getting idx', e);
       })
     }
   }
@@ -132,19 +132,19 @@ export class JobPostPage{
 
   getCities() {
     this.region.get_cities( this.form.varchar_2, re => {
-      console.log('cities', re);
+      //console.log('cities', re);
       if(re) {
         this.cities = re;
         this.showCities = true;
       }
     }, e => {
-      console.log('error location.get_cities::', e);
+      //console.log('error location.get_cities::', e);
     });
   }
 
 
   onClickSubmit(){
-    console.log("onClickSubmit:: ", this.form);
+    //console.log("onClickSubmit:: ", this.form);
 
     if( ! this.form.text_1 ) return this.app.notice('Please Input Name...');
     if( ! this.form.text_2 ) return this.app.notice('Please Input Middle Name...');
@@ -195,9 +195,9 @@ export class JobPostPage{
   }
 
   register() {
-    console.log("register:: ", this.regForm);
+    //console.log("register:: ", this.regForm);
     this.member.register( this.regForm, (login) => {
-        console.log('onClickRegister(), registration success: ', login )
+        //console.log('onClickRegister(), registration success: ', login )
         //this.createPost();
 
         // if ( this.photoUploaded() ) {
@@ -207,7 +207,7 @@ export class JobPostPage{
         //     this.createPost();
         //   }, error => this.member.error( 'file idx_member update error: ' + error ) );
         // }
-        // else 
+        // else
         this.createPost();
 
       },
@@ -227,7 +227,7 @@ export class JobPostPage{
     //console.log('createPost:: ', this.form);
     //this.post.debug =true;
     this.post.create( this.form, data => {
-        console.log("post create success: ", data);
+        //console.log("post create success: ", data);
         this.loader = false;
         this.logout();
         this.openConfirmation('Success::Your post has been Posted.');
@@ -239,9 +239,9 @@ export class JobPostPage{
   }
 
   updatePost() {
-    console.log('UpdatePost::', this.form);
+    //console.log('UpdatePost::', this.form);
     this.post.update( this.form, data => {
-      console.log("post update : ", data);
+      //console.log("post update : ", data);
       this.loader = false;
       this.logout();
       this.openConfirmation('Success::Your post has been Updated.');
@@ -303,7 +303,7 @@ export class JobPostPage{
   }
 
   onCameraConfirm( index ) {
-    // console.log("confirm: index: ", index);
+    //console.log("confirm: index: ", index);
     if ( index == 2 ) return;
     let type = null;
     if ( index == 1 ) { // get the picture from camera.
@@ -312,16 +312,16 @@ export class JobPostPage{
     else { // get the picture from library.
       type = Camera.PictureSourceType.PHOTOLIBRARY
     }
-    // console.log("in cordova, type: ", type);
+    //console.log("in cordova, type: ", type);
     let options = {
       quality: 80,
       sourceType: type
     };
     navigator.camera.getPicture( path => {
-      // console.log('photo: ', path);
+      //console.log('photo: ', path);
       this.fileTransfer( path ); // transfer the photo to the server.
     }, e => {
-      // console.error( 'camera error: ', e );
+      //console.error( 'camera error: ', e );
       //this.post.error("EditComponent::onCameraConfirm() : camera error");
     }, options);
   }
@@ -375,13 +375,13 @@ export class JobPostPage{
   }
 
   onSuccessFileUpload (re: FILE_UPLOAD_RESPONSE) {
-    console.log('re.data: ', re.data);
+    //console.log('re.data: ', re.data);
     //this.deleteFile( this.form.photos[0] );
     //this.form.photos =  re.data;
 
     // Edited by Mr. Song. this.form.photos is an Array but re.data is an Object.
     this.form.photos.push( re.data );
-    console.log('this.form::', this.form);
+    //console.log('this.form::', this.form);
     this.urlPhoto = re.data.url_thumbnail;
     this.showProgress = false;
     this.renderPage();
@@ -394,10 +394,10 @@ export class JobPostPage{
 
   onCompleteFileUpload( c ) {
     this.showProgress = false;
-    console.log("completeCode: ", c);
+    //console.log("completeCode: ", c);
   }
   onProgressFileUpload( p ) {
-    console.log("percentag uploaded: ", p);
+    //console.log("percentag uploaded: ", p);
     this.progress = p;
     this.renderPage();
   }
@@ -444,9 +444,9 @@ export class JobPostPage{
         this.inDeleting = true;
         this.data.delete( data, (re) => {
           this.inDeleting = false;
-          console.log("file deleted: idx: ", re.data.idx);
+          //console.log("file deleted: idx: ", re.data.idx);
           _.remove( this.form.photos , x => {
-            console.log('x:', x);
+            //console.log('x:', x);
             return x.idx == data.idx;
           } );
 
@@ -462,7 +462,7 @@ export class JobPostPage{
       }
     }
     catch ( e ) {
-      console.error("failed on deleting file: ", e);
+      //console.error("failed on deleting file: ", e);
     }
   }
 
@@ -476,7 +476,7 @@ export class JobPostPage{
 
   renderPage() {
     this.ngZone.run(() => {
-      console.log('ngZone.run()');
+      //console.log('ngZone.run()');
     });
   }
 
