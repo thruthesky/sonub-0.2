@@ -200,13 +200,15 @@ export class JobPostPage{
         console.log('onClickRegister(), registration success: ', login )
         //this.createPost();
 
-        if ( this.photoUploaded() ) {
-          this.data.updateMemberIdx( this.form.gid, re => {
-            console.log("file 'idx_member' update success: ", re );
-            this.createPost();
-          }, error => this.member.error( 'file idx_member update error: ' + error ) );
-        }
-        else this.createPost();
+        // if ( this.photoUploaded() ) {
+        //   console.log("gid: ", this.form.gid);
+        //   this.data.updateMemberIdx( this.form.gid, re => {
+        //     console.log("file 'idx_member' update success: ", re );
+        //     this.createPost();
+        //   }, error => this.member.error( 'file idx_member update error: ' + error ) );
+        // }
+        // else 
+        this.createPost();
 
       },
       e => {
